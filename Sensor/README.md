@@ -24,9 +24,12 @@ The `Sensor_DHT` folder contains the Arduino sketch which implements above descr
 - At the time of writing, it is necessary to apply the following workaround to avoid compilation errors:
 
   - In the `Base64` library folder rename `Base64.h` and `Base64.cpp` to `MyBase64.h` and `MyBase64.cpp`.
+    A version of the library where these changes are applied can be found [here](https://github.com/FlorSanders/arduino-my-base64).
   - In the `KPN SenML` library `src` folder change `#include <Base64.h>` to `#include <MyBase64.h>` in both `senml_binary_actuator.cpp` and `senml_helpers.cpp`.
+  A version of the library where these changes are applied can be found [here](https://github.com/FlorSanders/senml-c-library).
   - In `ArduinoData/packages/esp8266/hardware/esp8266/2.7.1/cores/esp8266`, open `base64.h` and add `#include <WString.h>` under ` #define CORE_BASE_64_H_`. 
-
+    An [issue](https://github.com/esp8266/Arduino/issues/7516) has been opened, the change has been incorporated in the master branch. Should be fixed when running the latest version.
+  
   The cause of the compilation errors seem to stem from the presence of a `base64.h` file in the core packages for the 8266 platform.
 
 ### Usage

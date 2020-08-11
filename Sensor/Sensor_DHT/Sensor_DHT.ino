@@ -1,5 +1,5 @@
 /***************************************
- * Sensor_DHT
+ * MQTT_SenML_DHT
  * Sensor: DHT11
  * Data serialization: SenML
  * Transport protocol: MQTT
@@ -22,6 +22,7 @@ DHT dht(DHT_PIN, DHT_TYPE);
 // Initializing NTPClient Object
 WiFiUDP ntpUDP;
 NTPClient timeClient(ntpUDP, NTP_SERVER, 0);
+double baseTime;
 
 // Initializing SenML Objects
 SenMLPack doc(SENSOR_NAME);
@@ -68,7 +69,7 @@ String MACtoEUI64(String MAC) {
   for(int i = 1; i <= 5; i++) {
     MAC.remove(2*i, 1);
   }
-  String EUI64 = MAC.substring(0, 6) + "FFFE" + MAC.substring(6);
+  String EUI64 = MAC.substring(0, 6) + "fffe" + MAC.substring(6);
   return EUI64;
 }
 
@@ -94,15 +95,19 @@ void setup() {
   // Initializing the Time client
   Serial.println("Starting NTP Client.");
   timeClient.begin();
+  timeClient.update();
+  baseTime = timeClient.getEpochTime();
 
   // Getting MAC and EUI64
   String MAC = WiFi.macAddress();
+  MAC.toLowerCase();
   String EUI64 = MACtoEUI64(MAC);
   String URN = "urn:dev:mac:" + EUI64;
 
   // Configuring the SenML Doc
   Serial.println("Configuring SenML Doc.");
   doc.setBaseName(URN.c_str());
+  doc.setBaseTime(baseTime);
   doc.add(&temperature);
   doc.add(&humidity);
 

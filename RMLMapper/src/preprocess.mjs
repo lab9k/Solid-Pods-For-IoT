@@ -8,7 +8,7 @@ export const preprocess = function (senml_records, callback) {
     callback(senml_data);
 }
 
-// Function to reconstruct the data in the SenML records by combining the base and normal fields.
+// Reconstruct the data in the SenML records by combining the base and normal fields.
 const reconstruct_data = function (senml_records) {
     // Sanity check: Does the array actually contain any records?
     if (!!senml_records.length) {
@@ -23,7 +23,7 @@ const reconstruct_data = function (senml_records) {
     }
 }
 
-// Function to extract the base fields out of the message and assign default value if undefined
+// Extract the base fields out of the message and assign default value if undefined
 const get_base_fields = function (senml_records) {
     // Destructure the base fields from the first record
     var { bn, bt, bu, bv, bs } = senml_records[0];

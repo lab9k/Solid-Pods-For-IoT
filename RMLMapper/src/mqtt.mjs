@@ -9,12 +9,12 @@
 import mqtt from 'mqtt';
 
 // Importing configuration parameters
-import {DEBUG, MQTT_SERVER, MQTT_TOPIC} from './config.mjs';
+import { DEBUG, MQTT_SERVER, MQTT_TOPIC } from './config.mjs';
 
-export const connect_mqtt = function(callback) {
+export const connect_mqtt = function (callback) {
     // Initializing MQTT Client and connecting to the configured server
     if (DEBUG) console.log(`connecting to ${MQTT_SERVER}...`);
-    var client = mqtt.connect('', {host: MQTT_SERVER, protocol: 'mqtt'});
+    var client = mqtt.connect('', { host: MQTT_SERVER, protocol: 'mqtt' });
 
     // Report connection errors
     client.on('error', (err) => {
@@ -36,6 +36,7 @@ export const connect_mqtt = function(callback) {
 
     // Pass incoming messages through to the callback function.
     client.on('message', (topic, msg) => {
+        if (DEBUG) console.log(msg.toString());
         callback(msg.toString());
     });
 }

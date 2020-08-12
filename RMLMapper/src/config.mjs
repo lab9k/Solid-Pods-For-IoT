@@ -1,4 +1,9 @@
-// Configuration parameters for all aspects of the program, in one handy file
+/***************************************
+ * Title: Config
+ * Description: Contains all the configurable constants used throughout the application, in a central place.
+ * Author: Flor Sanders
+ * Version: 1.0
+*****************************************/
 
 // Define program constants
 export const DEBUG = true;

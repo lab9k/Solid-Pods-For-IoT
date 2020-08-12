@@ -11,7 +11,15 @@
  * Version: 1.0
 *****************************************/
 
-import {connect_mqtt} from './mqtt.mjs';
-import {parse_senml} from './parse.mjs';
+import { connect_mqtt } from './mqtt.mjs';
+import { parse_senml } from './parse.mjs';
+import { preprocess } from './preprocess.mjs';
 
-connect_mqtt((msg) => parse_senml(msg, console.log));
+// Connect the MQTT client
+connect_mqtt((msg) => {
+    // Parse incoming messages to JSON
+    parse_senml(msg, (senml_records) => {
+        // Preprocess incoming data before mapping
+        preprocess(senml_records, console.log);
+    });
+});

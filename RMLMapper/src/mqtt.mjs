@@ -1,6 +1,6 @@
 /***************************************
  * Title: MQTTClient
- * Description: Connects to the configured MQTT server, subscribes to the configured MQTT topic and calls a callback function for all incoming messages.
+ * Description: Connects to the configured MQTT server, subscribes to the configured MQTT topic and passes incoming messages to callback function.
  * Author: Flor Sanders
  * Version: 1.0
 *****************************************/

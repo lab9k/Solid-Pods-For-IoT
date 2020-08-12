@@ -12,5 +12,6 @@
 *****************************************/
 
 import {connect_mqtt} from './mqtt.mjs';
+import {parse_senml} from './parse.mjs';
 
-connect_mqtt(console.log);
+connect_mqtt((msg) => parse_senml(msg, console.log));

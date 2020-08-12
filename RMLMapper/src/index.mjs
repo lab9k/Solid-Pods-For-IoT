@@ -6,11 +6,10 @@
 *****************************************/
 
 // Importing the required libraries
-var mqtt = require('mqtt');
+import mqtt from 'mqtt';
 
-// Defining program constants
-const MQTT_SERVER = '192.168.0.249';
-const MQTT_TOPIC = 'solid_iot_one';
+// Importing configuration parameters
+import {MQTT_SERVER, MQTT_TOPIC} from './config.mjs';
 
 // Initializing MQTT client and connecting to the configured server
 console.log(`connecting to ${MQTT_SERVER}...`)

@@ -1,38 +1,16 @@
 /***************************************
- * RMLMapper
+ * Title: RMLMapper
+ * Description: Node.js instance which:
+ * 1. Connects to an MQTT server of choice and subscribes to a configurable topic.
+ * 2. Parses incoming message strings as SenML records (ignores other messages).
+ * 3. Pre-processes the SenML records, reconstructing the contained data.
+ * 4. Maps the processed SenML records to RDF format (either SSN or SAREF).
+ * 5. Merges the new measurements with the existing graph and saves the data to a Solid Pod.
  * MQTT + SenML -[RML]-> RDF + Solid Pod
  * Author: Flor Sanders
  * Version: 1.0
 *****************************************/
 
-// Importing the required libraries
-import mqtt from 'mqtt';
+import {connect_mqtt} from './mqtt.mjs';
 
-// Importing configuration parameters
-import {MQTT_SERVER, MQTT_TOPIC} from './config.mjs';
-
-// Initializing MQTT client and connecting to the configured server
-console.log(`connecting to ${MQTT_SERVER}...`)
-var client = mqtt.connect('', {host: MQTT_SERVER, protocol: 'mqtt'});
-
-// Report connection errors
-client.on('error', (err) => {
-    console.error(`Error connecting: ${err}.`);
-});
-
-// Upon connection, subscribe to the configured topic
-client.on('connect', () => {
-    console.log(`Connected!\nSubscribing to ${MQTT_TOPIC}...`);
-    client.subscribe(MQTT_TOPIC, (err) => {
-        if (err) {
-            console.error(`Error subscribing: ${err}.`);
-        } else {
-            console.log(`Subscribed!`);
-        }
-    });
-});
-
-// Handle the messages as they come in
-client.on('message', (topic, message) => {
-    console.log(message.toString());
-});
+connect_mqtt(console.log);

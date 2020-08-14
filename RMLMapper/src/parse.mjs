@@ -5,6 +5,7 @@
  * Version: 1.0
 *****************************************/
 
+// Importing configuration parameters
 import { DEBUG } from './config.mjs';
 
 // Parse SenML records from a string to an array of JSON objects

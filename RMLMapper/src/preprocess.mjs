@@ -13,8 +13,10 @@
  * Version: 1.0
 *****************************************/
 
+// Importing the required libraries
 import { v4 as uuidv4 } from 'uuid';
 
+// Importing configuration parameters
 import { DEBUG, UNITS_OM, PROPERTIES_OM } from './config.mjs';
 
 // Pre-processing function on the incoming SenML records before mapping is applied.

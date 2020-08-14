@@ -11,10 +11,12 @@
  * Version: 1.0
 *****************************************/
 
+// Importing building block functions
 import { connect_mqtt } from './mqtt.mjs';
 import { parse_senml } from './parse.mjs';
 import { preprocess } from './preprocess.mjs';
 
+// Combining building block functions to obtain desired functionality
 // Connect the MQTT client
 connect_mqtt((msg) => {
     // Parse incoming messages to JSON

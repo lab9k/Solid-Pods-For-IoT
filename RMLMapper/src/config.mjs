@@ -13,6 +13,13 @@ export const MQTT_SERVER = 'broker.hivemq.com';
 export const MQTT_TOPIC = 'solid_iot_333';
 
 // Mapping constants (which SenML unit maps to which om-2 unit and quantity)
+export const RML_FILE = "./rml/rml_ssn.ttl";
+export const RML_OPTIONS = { 
+    toRDF: true,
+    verbose: false,
+    xmlPerformanceMode: false,
+	replace: false
+}
 export const UNITS_OM = {
     "m": "metre",
     "kg": "kilogram",
@@ -72,7 +79,7 @@ export const UNITS_OM = {
     "beat/min": "reciprocalSecond-Time",
     "beats": "one",
     "S/m": "siemensPerMetre"
-};
+}
 export const PROPERTIES_OM = {
     "m": "Length",
     "kg": "Mass",
@@ -132,4 +139,4 @@ export const PROPERTIES_OM = {
     "beat/min": "Frequency",
     "beats": "Number",
     "S/m": "ElectricalConductivity"
-};
+}

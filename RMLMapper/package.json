@@ -25,6 +25,7 @@
   "homepage": "https://github.com/lab9k/Solid-Pods-For-IoT#readme",
   "dependencies": {
     "mqtt": "^4.1.0",
+    "rocketrml": "^1.8.0",
     "uuid": "^8.3.0"
   }
 }

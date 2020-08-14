@@ -1,3 +1,17 @@
+/***************************************
+ * Title: Preprocess
+ * Description: Takes incoming messages, and:
+ * 1. Reconstructs the data from the SenML records.
+ * 2. Applies a pre-processing step for easy mapping:
+ *  a. Add uuid
+ *  b. Convert unix timestamp to xsd:dateTime format
+ *  c. Translate unit to the one used in the om scheme.
+ *  d. Use the unit to define a category from the om scheme.
+ * 3. Stringifies the JSON
+ * Author: Flor Sanders
+ * Version: 1.0
+*****************************************/
+
 import { DEBUG } from './config.mjs';
 
 // Pre-processing function on the incoming SenML records before mapping is applied.

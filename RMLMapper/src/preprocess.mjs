@@ -2,24 +2,86 @@
  * Title: Preprocess
  * Description: Takes incoming messages, and:
  * 1. Reconstructs the data from the SenML records.
- * 2. Applies a pre-processing step for easy mapping:
+ * 2. Filters the incoming packages based on validity and usefulness.
+ * 3. Applies a pre-processing step for easy mapping:
  *  a. Add uuid
  *  b. Convert unix timestamp to xsd:dateTime format
  *  c. Translate unit to the one used in the om scheme.
  *  d. Use the unit to define a category from the om scheme.
- * 3. Stringifies the JSON
+ * 4. Stringifies the JSON
  * Author: Flor Sanders
  * Version: 1.0
 *****************************************/
 
-import { DEBUG } from './config.mjs';
+import { v4 as uuidv4 } from 'uuid';
+
+import { DEBUG, UNITS_OM, PROPERTIES_OM } from './config.mjs';
 
 // Pre-processing function on the incoming SenML records before mapping is applied.
 export const preprocess = function (senml_records, callback) {
-    // Combining base and normal fields from the SenML records to reconstruct the actual data
+    // 1. Combining base and normal fields from the SenML records to reconstruct the actual data
     var senml_data = reconstruct_data(senml_records);
+    // 2. Filtering data for validity and usefulness
+    var filtered_data = filter_data(senml_data);
+    // 3. Apply actual preprocessing step
+    var preprocessed_data = anteprocess(filtered_data);
+    // 4. Stringify
+    var preprocessed_string = JSON.stringify(preprocessed_data);
     // Pass the reconstructed message on to callback function.
-    callback(senml_data);
+    callback(preprocessed_string);
+}
+
+// The actual pre-processing step
+const anteprocess = function (filtered_data) {
+    // Preprocess the data
+    var preprocessed_data = filtered_data.map((data) => {
+        // Destructure data
+        var { value, name, unit, time } = data;
+        // Adding data that needs no processing
+        var preprocessed = { name, value };
+        // Add unit and property (if not undefined)
+        if (!!unit) {
+            var translated_unit = UNITS_OM[unit];
+            preprocessed.unit = (!!translated_unit) ? translated_unit : "one";
+            var translated_property = PROPERTIES_OM[unit];
+            if (!!translated_property) preprocessed.property = translated_property;
+        }
+        // Convert epoch time in seconds to xsd:dateTime format
+        var xsd_time = epoch_to_xsd_datetime(time);
+        preprocessed.time = xsd_time;
+        // Add uuid
+        preprocessed.uuid = uuidv4();
+        // Returning preprocessed
+        return preprocessed;
+    });
+    // Returning preprocessed data
+    return preprocessed_data;
+}
+
+const epoch_to_xsd_datetime = function (epoch_time) {
+    var date_time = new Date(epoch_time * 1000);
+    var xsd_time = date_time.toISOString().slice(0, 19) + 'Z';
+    return xsd_time;
+}
+
+// Filter records by checking validity and usefulness
+const filter_data = function (senml_data) {
+    var filtered_data = senml_data.filter((data) => {
+        // Sanity check
+        if (!!data) {
+            // Destructure data
+            var { type, value, name } = data;
+            // Record is not valid if name isn't a unique identifier
+            if (!!name && name.length > 0) {
+                // We'll only be processing packages containing numerical measurements
+                if (!!value && type === "double") {
+                    return true;
+                }
+            }
+        }
+        return false;
+    });
+    return filtered_data;
 }
 
 // Reconstruct the data in the SenML records by combining the base and normal fields.

@@ -14,11 +14,11 @@ export const MQTT_TOPIC = 'solid_iot_one';
 
 // Mapping constants (which SenML unit maps to which om-2 unit and quantity) (SSN/SAREF)
 export const RML_FILE = "./src/rml/rml_saref.ttl";
-export const RML_OPTIONS = { 
+export const RML_OPTIONS = {
     toRDF: true,
     verbose: false,
     xmlPerformanceMode: false,
-	replace: false
+    replace: false
 }
 export const UNITS_OM = {
     "m": "metre",

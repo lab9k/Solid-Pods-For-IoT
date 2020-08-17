@@ -36,7 +36,6 @@ export const connect_mqtt = function (callback) {
 
     // Pass incoming messages through to the callback function.
     client.on('message', (topic, msg) => {
-        if (DEBUG) console.log(msg.toString());
         callback(msg.toString());
     });
 }

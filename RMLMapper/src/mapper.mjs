@@ -19,7 +19,7 @@ var rml_file;
 export const map_to_rdf = async function (jsonstring, callback) {
     // Load thr rml file into memory (once only)
     if (!rml_file) {
-        rml_file = await loadFileToString(RML_FILE).catch((err) => {
+        rml_file = await load_file_to_string(RML_FILE).catch((err) => {
             if (DEBUG) console.error(err);
         });
         if (DEBUG) console.log('RML File Loaded');
@@ -34,7 +34,7 @@ export const map_to_rdf = async function (jsonstring, callback) {
 }
 
 // Function to load file contents to a string
-function loadFileToString(filename) {
+function load_file_to_string(filename) {
     return new Promise((resolve, reject) => {
         fs.readFile(filename, (err, data) => {
             if (err) {

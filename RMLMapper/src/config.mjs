@@ -5,15 +5,16 @@
  * Version: 1.0
 *****************************************/
 
-// Define program constants
+// Program constants
 export const DEBUG = true;
+export const SHOW_DATA = true;
 
-// Defining MQTT constants
+// MQTT constants
 export const MQTT_SERVER = '192.168.0.249';
 export const MQTT_TOPIC = 'solid_iot_one';
 
 // Mapping constants (which SenML unit maps to which om-2 unit and quantity) (SSN/SAREF)
-export const RML_FILE = "./src/rml/rml_saref.ttl";
+export const RML_FILE = './src/rml/rml_saref.ttl';
 export const RML_OPTIONS = {
     toRDF: true,
     verbose: false,
@@ -140,3 +141,10 @@ export const PROPERTIES_OM = {
     "beats": "Number",
     "S/m": "ElectricalConductivity"
 }
+
+// Solid Pod constants (Credentials saved to a separate file to avoid pushing them to github)
+import {username, password} from './credentials.mjs';
+export const IDENTITY_PROVIDER = 'https://inrupt.net';
+export const USERNAME = username;
+export const PASSWORD = password;
+export const LOCATION = 'private/iot/iot_data.ttl'

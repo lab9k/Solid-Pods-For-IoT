@@ -30,6 +30,7 @@ export const preprocess = function (senml_records, callback) {
     // 4. Stringify
     var preprocessed_string = JSON.stringify(preprocessed_data);
     // Pass the reconstructed message on to callback function.
+    if (DEBUG) console.log(preprocessed_string);
     callback(preprocessed_string);
 }
 

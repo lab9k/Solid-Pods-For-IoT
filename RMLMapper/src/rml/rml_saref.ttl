@@ -33,7 +33,7 @@
 @prefix xsd:  <http://www.w3.org/2001/XMLSchema#>.
 @prefix om2: <http://www.ontology-of-units-of-measure.org/resource/om-2/>.
 @prefix map: <http://example.com/rmlmapping/>.
-@base <//>.
+@base <-->.
 
 map:datasource
     rml:source "input";

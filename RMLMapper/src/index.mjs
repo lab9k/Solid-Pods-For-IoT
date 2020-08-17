@@ -15,6 +15,7 @@
 import { connect_mqtt } from './mqtt.mjs';
 import { parse_senml } from './parse.mjs';
 import { preprocess } from './preprocess.mjs';
+import { map_to_rdf } from './mapper.mjs';
 
 // Combining building block functions to obtain desired functionality
 // Connect the MQTT client
@@ -22,6 +23,9 @@ connect_mqtt((msg) => {
     // Parse incoming messages to JSON
     parse_senml(msg, (senml_records) => {
         // Preprocess incoming data before mapping
-        preprocess(senml_records, console.log);
+        preprocess(senml_records, (json_string) => {
+            // Map the incoming messages to RDF
+            map_to_rdf(json_string, console.log)
+        });
     });
 });

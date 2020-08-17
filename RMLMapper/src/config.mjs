@@ -9,11 +9,11 @@
 export const DEBUG = true;
 
 // Defining MQTT constants
-export const MQTT_SERVER = 'broker.hivemq.com';
-export const MQTT_TOPIC = 'solid_iot_333';
+export const MQTT_SERVER = '192.168.0.249';
+export const MQTT_TOPIC = 'solid_iot_one';
 
-// Mapping constants (which SenML unit maps to which om-2 unit and quantity)
-export const RML_FILE = "./rml/rml_ssn.ttl";
+// Mapping constants (which SenML unit maps to which om-2 unit and quantity) (SSN/SAREF)
+export const RML_FILE = "./src/rml/rml_saref.ttl";
 export const RML_OPTIONS = { 
     toRDF: true,
     verbose: false,

@@ -2,7 +2,7 @@
   "name": "rmlmapper",
   "version": "1.0.0",
   "description": "A node.js server instance which connects to the MQTT broker and converts the SenML data to RDF format by means of amapper, after which the data is saved to a Solid Pod.",
-  "main": "index.js",
+  "main": "./src/index.js",
   "scripts": {
     "start": "node ./src/index.mjs",
     "test": "echo \"Error: no test specified\" && exit 1"

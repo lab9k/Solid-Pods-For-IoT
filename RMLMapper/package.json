@@ -1,0 +1,35 @@
+{
+  "name": "rmlmapper",
+  "version": "1.0.0",
+  "description": "A node.js server instance which connects to the MQTT broker and converts the SenML data to RDF format by means of amapper, after which the data is saved to a Solid Pod.",
+  "main": "./src/index.js",
+  "scripts": {
+    "start": "node ./src/index.mjs",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lab9k/Solid-Pods-For-IoT.git"
+  },
+  "keywords": [
+    "Solid",
+    "RML",
+    "IoT",
+    "SenML",
+    "MQTT"
+  ],
+  "author": "Flor Sanders",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/lab9k/Solid-Pods-For-IoT/issues"
+  },
+  "homepage": "https://github.com/lab9k/Solid-Pods-For-IoT#readme",
+  "dependencies": {
+    "mqtt": "^4.1.0",
+    "rdflib": "^1.3.1",
+    "rocketrml": "^1.8.0",
+    "solid-auth-cli": "^1.0.14",
+    "solid-auth-client": "^2.5.0",
+    "uuid": "^8.3.0"
+  }
+}

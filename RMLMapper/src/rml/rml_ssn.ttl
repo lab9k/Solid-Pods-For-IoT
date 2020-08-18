@@ -1,0 +1,112 @@
+##########################################
+ # Title: RML_SSN
+ # Description: RML file in turtle serialization which achieves conversion from:
+ # Preprocessed input (JSON): 
+ # ```
+ # [{"name", "uuid", "value", "unit", "property", "time"}]
+ # ```
+ # to:
+ # RDF (SSN):
+ # ```
+ # @prefix sosa: <http://www.w3.org/ns/sosa/>.
+ # @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+ # @prefix xsd:  <http://www.w3.org/2001/XMLSchema#>.
+ # @prefix om2: <http://www.ontology-of-units-of-measure.org/resource/om-2/>.
+ # <{name}> 
+ # 	rdf:type sosa:sensor;
+ # 	sosa:observes om2:{property};
+ # 	sosa:madeObservation <uuid:{uuid}>.
+ # <uuid:{uuid}>
+ # 	rdf:type sosa:Observation;
+ # 	sosa:hasResult <uuid:{uuid}_result>;
+ # 	sosa:resultTime "{time}"^^xsd:dateTime.
+ # <uuid:{uuid}_result>
+ # 	rdf:type om2:Measure;
+ # 	om2:hasUnit om2:{unit};
+ # 	om2:hasNumericalValue "{value}"^^xsd:float.
+ # ```
+ # Author: Flor Sanders
+ # Version: 1.0
+##########################################
+@prefix rr: <http://www.w3.org/ns/r2rml#>.
+@prefix rml: <http://semweb.mmlab.be/ns/rml#>.
+@prefix ql: <http://semweb.mmlab.be/ns/ql#>.
+@prefix sosa: <http://www.w3.org/ns/sosa/>.
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#>.
+@prefix om2: <http://www.ontology-of-units-of-measure.org/resource/om-2/>.
+@prefix map: <http://example.com/rmlmapping/>.
+@base <-->.
+
+map:datasource
+    rml:source "input";
+    rml:referenceFormulation ql:JSONPath;
+    rml:iterator "$[*]".
+
+map:DeviceMap a rr:TriplesMap;
+    rml:logicalSource map:datasource;
+    
+    rr:subjectMap [
+        rr:reference "name";
+        rr:class sosa:Sensor
+    ];
+    
+    rr:predicateObjectMap [
+        rr:predicate sosa:madeObservation;
+        rr:objectMap [
+            rr:template "uuid:{uuid}"
+        ]
+    ];
+    
+    rr:predicateObjectMap [
+        rr:predicate sosa:observes;
+        rr:objectMap [
+            rr:template "http://www.ontology-of-units-of-measure.org/resource/om-2/{property}"
+        ]
+    ].
+    
+map:MeasurementMap a rr:TriplesMap;
+    rml:logicalSource map:datasource;
+    
+    rr:subjectMap [
+        rr:template "uuid:{uuid}";
+        rr:class sosa:Observation
+    ];
+    
+    rr:predicateObjectMap [
+        rr:predicate sosa:hasResult;
+        rr:objectMap [
+            rr:template "uuid:{uuid}_result"
+        ]
+    ];
+    
+    rr:predicateObjectMap [
+        rr:predicate sosa:resultTime;
+        rr:objectMap [
+            rr:reference "time";
+            rr:datatype xsd:dateTIme
+        ];
+    ].
+    
+map:ResultMap a rr:TriplesMap;
+    rml:logicalSource map:datasource;
+    
+    rr:subjectMap [
+        rr:template "uuid:{uuid}_result";
+        rr:class om2:Measure
+    ];
+    
+    rr:predicateObjectMap [
+        rr:predicate om2:hasUnit;
+        rr:objectMap [
+            rr:template "http://www.ontology-of-units-of-measure.org/resource/om-2/{unit}"
+        ]
+    ];
+    
+    rr:predicateObjectMap [
+        rr:predicate om2:hasNumericalValue;
+        rr:objectMap [
+            rr:reference "value";
+            rr:datatype xsd:float
+        ]
+    ].

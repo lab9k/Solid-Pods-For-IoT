@@ -151,3 +151,4 @@ export const IDENTITY_PROVIDER = 'https://solidweb.org';
 export const USERNAME = username;
 export const PASSWORD = password;
 export const LOCATION = 'private/iot/iot_data.ttl'
+export const UPDATER_DELAY_MS = 30e3;

@@ -10,7 +10,7 @@ import auth from 'solid-auth-cli';
 import $rdf from 'rdflib';
 
 // Importing configuration parameters
-import { IDENTITY_PROVIDER, USERNAME, PASSWORD, LOCATION, DEBUG } from './config.mjs';
+import { IDENTITY_PROVIDER, USERNAME, PASSWORD, LOCATION, UPDATER_DELAY_MS, DEBUG } from './config.mjs';
 
 // Global variables
 var session;
@@ -18,8 +18,10 @@ var login_called = false;
 var iot_location;
 var location_called = false;
 const iot_store = $rdf.graph();
-const iot_fetcher = new $rdf.Fetcher(iot_store);
 const iot_updater = new $rdf.UpdateManager(iot_store);
+var previous_update = Date.now();
+var local_store = new $rdf.Formula;
+var message_amount = 0;
 
 // RDF Namespaces
 const LDP = new $rdf.Namespace('https://www.w3.org/ns/ldp#');
@@ -50,27 +52,32 @@ export const save = async function (rdf_data) {
         if(!location_called){
             location_called = true;
             iot_location = await get_or_create_iot_doc(session.webId);
-            if (DEBUG) console.log('Fetching IoT Document...');
-            let iot_doc = iot_store.sym(iot_location).doc();
-            await iot_fetcher.load(iot_doc).catch((err) => {
-                if (DEBUG) console.error(`Error fetching IoT document: ${err}`);
-            });
         } else {
             while(!iot_location){
                 await sleep(1000);
             }
         }
     }
-    // Adding our translated graph to the store and updating the Solid pod
-    const tempStore = new $rdf.Formula;
-    $rdf.parse(rdf_data, tempStore, iot_location, 'text/n3');
-    iot_updater.update(null, tempStore, (uri, ok, err) => {
-        if (ok) {
-            if (DEBUG) console.log('Succesfully saved new measurements to Pod.');
-        } else {
-            if (DEBUG) console.error(`Error updating the IoT document: ${err}`);
-        }
-    });
+    // Adding our translated graph to the store
+    $rdf.parse(rdf_data, local_store, iot_location, 'text/n3');
+    message_amount++;
+    if (Date.now() - previous_update >= UPDATER_DELAY_MS) {
+        if (DEBUG) console.log(`Saving ${message_amount} new messages to Pod.`);
+        // Bunching up messages and sending them in a combined upload as not to overload the Solid server.
+        iot_updater.update(null, local_store, (uri, ok, err) => {
+            if (ok) {
+                if (DEBUG) console.log('Succesfully saved new messages to Pod.');
+            } else {
+                if (DEBUG) console.error(`Error updating the IoT document: ${err}`);
+            } 
+        });
+        // Clearing the local store
+        local_store = new $rdf.Formula;
+        // Resetting the current time
+        previous_update = Date.now();
+        // Resetting message amount
+        message_amount = 0;
+    }
 }
 
 // Log in to the configured Solid Pod

@@ -20,6 +20,8 @@ A node.js server instance which connects to the the MQTT broker and converts the
   - 3 options for Solid identity providers are included, but this can be set to any valid address.
   - `LOCATION` defines the default location where the IoT gets saved to on the Pod.
     If there's already a file present at another location, this gets discovered automatically.
+  - `UPDATER_DELAY_MS` defines the amount of time that has to be waited between updating the pod store with the local one.
+    This is done to avoid sending too many fetch requests to the Solid server and thereby overloading it.
 
 - Create a `credentials.mjs` file in the `src` folder and add the following code:
 

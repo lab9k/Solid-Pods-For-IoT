@@ -15,7 +15,8 @@
     "Solid",
     "RML",
     "IoT",
-    "SenML"
+    "SenML",
+    "MQTT"
   ],
   "author": "Flor Sanders",
   "license": "UNLICENSED",

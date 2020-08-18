@@ -7,14 +7,15 @@
 
 // Program constants
 export const DEBUG = true;
-export const SHOW_DATA = true;
+export const SHOW_DATA = false;
 
 // MQTT constants
 export const MQTT_SERVER = '192.168.0.249';
 export const MQTT_TOPIC = 'solid_iot_one';
 
 // Mapping constants (which SenML unit maps to which om-2 unit and quantity) (SSN/SAREF)
-export const RML_FILE = './src/rml/rml_saref.ttl';
+export const RML_FILE = './src/rml/rml_ssn.ttl';
+// export const RML_FILE = './src/rml/rml_saref.ttl';
 export const RML_OPTIONS = {
     toRDF: true,
     verbose: false,
@@ -58,17 +59,17 @@ export const UNITS_OM = {
     "m/s": "metrePerSecond-Time",
     "m/s2": "metrePerSecond-TimeSquared",
     "m3/s": "cubicMetrePerSecond-Time",
-    "l/s": "cubicMetrePerSecond-Time",
+    "l/s": undefined,
     "W/m2": "wattPerSquareMetre",
     "cd/m2": "candelaPerSquareMetre",
     "bit": "bit",
     "bit/s": "bitPerSecond-Time",
     "lat": "degree",
     "lon": "degree",
-    "pH": "one",
-    "dB": "one",
-    "dBW": "one",
-    "Bspl": "one",
+    "pH": undefined,
+    "dB": undefined,
+    "dBW": undefined,
+    "Bspl": undefined,
     "count": "one",
     "/": "one",
     "%": "one",
@@ -76,8 +77,8 @@ export const UNITS_OM = {
     "%EL": "percent",
     "EL": "second-Time",
     "1/s": "reciprocalSecond-Time",
-    "1/min": "reciprocalSecond-Time",
-    "beat/min": "reciprocalSecond-Time",
+    "1/min": undefined,
+    "beat/min": undefined,
     "beats": "one",
     "S/m": "siemensPerMetre"
 }
@@ -144,7 +145,9 @@ export const PROPERTIES_OM = {
 
 // Solid Pod constants (Credentials saved to a separate file to avoid pushing them to github)
 import {username, password} from './credentials.mjs';
-export const IDENTITY_PROVIDER = 'https://inrupt.net';
+// export const IDENTITY_PROVIDER = 'https://inrupt.net';
+// export const IDENTITY_PROVIDER = 'https://solid.community';
+export const IDENTITY_PROVIDER = 'https://solidweb.org';
 export const USERNAME = username;
 export const PASSWORD = password;
 export const LOCATION = 'private/iot/iot_data.ttl'

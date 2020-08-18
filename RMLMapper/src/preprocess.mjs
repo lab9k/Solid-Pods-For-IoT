@@ -36,10 +36,22 @@ const anteprocess = function (filtered_data) {
     var preprocessed_data = filtered_data.map((data) => {
         // Destructure data
         var { value, name, unit, time } = data;
-        // Adding data that needs no processing
-        var preprocessed = { name, value };
+        // Add name
+        var preprocessed = {name};
         // Add unit and property (if not undefined)
         if (!!unit) {
+            // Converting non-supported units to supported ones
+            switch (unit) {
+                case 'l/s':
+                    unit = 'm3/s';
+                    value = value/1000;
+                case '1/min':
+                    unit = '1/s';
+                    value = value/60;
+                case 'beat/min':
+                    unit = '1/s';
+                    value = value/60;
+            }
             var translated_unit = UNITS_OM[unit];
             preprocessed.unit = (!!translated_unit) ? translated_unit : "one";
             var translated_property = PROPERTIES_OM[unit];
@@ -50,6 +62,8 @@ const anteprocess = function (filtered_data) {
         preprocessed.time = xsd_time;
         // Add uuid
         preprocessed.uuid = uuidv4();
+        // Adding remaining data
+        preprocessed.value = value;
         // Returning preprocessed
         return preprocessed;
     });

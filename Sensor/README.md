@@ -20,6 +20,7 @@ The `Sensor_DHT` folder contains the Arduino sketch which implements above descr
   - Import as zip file:
     - [KPN SenML](https://github.com/kpn-iot/senml-c-library)
     - [Base64](https://github.com/adamvr/arduino-base64)
+    - [Adafruit DHT](https://github.com/adafruit/DHT-sensor-library)
 
 - At the time of writing, it is necessary to apply the following workaround to avoid compilation errors:
 
@@ -43,6 +44,27 @@ The `Sensor_DHT` folder contains the Arduino sketch which implements above descr
   - Connect to the configured Wi-Fi network.
   - Connect to the configured MQTT Broker.
     We used a [Mosquitto](https://mosquitto.org/) instance running on a Raspberry Pi, but any broker will do.
+- Take measurements using the DHT11 sensor and publish them to the configured MQTT topic in SenML format. For example:
+    ` [{"bn":"urn:dev:mac:B4E62DFFFE28E081","n":"temperature","t":1597134862.0,"u":"Cel","v":26.0},{"n":"humidity","t":1597134862.0,"u":"%RH","v":18.0}]`.
+
+## Sensor_LDR
+
+The `Sensor_LDR` folder contains the Arduino sketch which implements above description for a light dependent resistor (LDR) in a voltage divider configuration. Since no calibration has been done it just converts the analog reading to a percentage value.
+
+### Installation
+
+The installation is identical as for the `Sensor_DHT` sketch, with the exception that the Adafruit DHT library doesn't need to be installed.
+
+### Usage
+
+- Configure the sketch parameters in `ProgramConfig.h`.
+- Connect one leg of the LDR to the 3.3V terminal and the other to the analog input (`A0` in default configuration). Add a pull-down resistor from the analog input to ground to complete the voltage divider.
+  (Since the resistance of the LDR is inversely proportional to the illuminance strength, this configuration will yield a voltage that's proportional to the amount of light falling on it.)
+- Build the sketch and upload to the NodeMCU, it will:
+
+  - Connect to the configured Wi-Fi network.
+  - Connect to the configured MQTT Broker.
+    We used a [Mosquitto](https://mosquitto.org/) instance running on a Raspberry Pi, but any broker will do.
 
   - Take measurements using the DHT11 sensor and publish them to the configured MQTT topic in SenML format. For example:
-    ` [{"bn":"urn:dev:mac:B4E62DFFFE28E081","n":"temperature","t":1597134862.0,"u":"Cel","v":26.0},{"n":"humidity","t":1597134862.0,"u":"%RH","v":18.0}]`.
+    ` [{"bn":"urn:dev:mac:b4e62dfffe28dfd0_","bt":1597846496.0,"n":"light","t":150.0,"v":93.0}]`.

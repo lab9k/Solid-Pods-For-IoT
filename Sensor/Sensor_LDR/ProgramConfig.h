@@ -8,9 +8,8 @@
 #define WIFI_SSID "Your_SSID"
 #define WIFI_PASS "Your_Password"
 
-// DHT Sensor Configuration
-#define DHT_PIN D3
-#define DHT_TYPE DHT11
+// LDR configuration
+#define LDP_PIN A0
 
 // SenML Configuration
 #define SENSOR_NAME "Your_Sensor_Name"
@@ -24,3 +23,4 @@
 #define MSG_BUFFER_SIZE  256
 
 #endif
+

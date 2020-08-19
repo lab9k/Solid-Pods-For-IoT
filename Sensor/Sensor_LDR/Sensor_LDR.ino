@@ -8,16 +8,12 @@
 *****************************************/
 
 // Including required libraries
-#include "DHT.h"
 #include <kpn_senml.h>
 #include <NTPClient.h>
 #include <ESP8266WiFi.h>
 #include <WiFiUdp.h>
 #include <PubSubClient.h>
 #include "ProgramConfig.h"
-
-// Initializing DHT Object
-DHT dht(DHT_PIN, DHT_TYPE);
 
 // Initializing NTPClient Object
 WiFiUDP ntpUDP;
@@ -26,8 +22,7 @@ double baseTime;
 
 // Initializing SenML Objects
 SenMLPack doc(SENSOR_NAME);
-SenMLFloatRecord temperature(KPN_SENML_TEMPERATURE, SENML_UNIT_DEGREES_CELSIUS);
-SenMLFloatRecord humidity(KPN_SENML_HUMIDITY, SENML_UNIT_RELATIVE_HUMIDITY);
+SenMLFloatRecord light("light");
 
 // Initializing MQTT Objects
 WiFiClient espClient;
@@ -88,10 +83,6 @@ void setup() {
   }
   Serial.println(".");
 
-  // Initializing DHT Sensor
-  Serial.println("Starting DHT Sensor.");
-  dht.begin();
-
   // Initializing the Time client
   Serial.println("Starting NTP Client.");
   timeClient.begin();
@@ -108,8 +99,7 @@ void setup() {
   Serial.println("Configuring SenML Doc.");
   doc.setBaseName(URN.c_str());
   doc.setBaseTime(baseTime);
-  doc.add(&temperature);
-  doc.add(&humidity);
+  doc.add(&light);
 
   // Configure the MQTT client
   Serial.println("Configuring MQTT Client.");
@@ -126,13 +116,13 @@ void loop() {
   }
   client.loop();
 
-  // Reading humidity and temperature from the dht22
-  float humVal = dht.readHumidity();
-  float tempVal = dht.readTemperature();
+  // Reading the voltage over our LDP
+  float luxVoltage = analogRead(LDP_PIN);
+  float luxVal = map(luxVoltage, 0, 1023, 0, 100);
   
   // Check if any reads failed and exit early (to try again).
-  if (isnan(tempVal) || isnan(humVal)) {
-    Serial.println("Failed to read from DHT sensor!");
+  if (isnan(luxVal)) {
+    Serial.println("Something went horribly wrong reading the lux value");
     return;
   }
 
@@ -141,14 +131,13 @@ void loop() {
   double timeVal = timeClient.getEpochTime();
 
   // Setting the new measured values in the document
-  temperature.set(tempVal, timeVal);
-  humidity.set(humVal, timeVal);
+  light.set(luxVal, timeVal);
   // Parsing the document to JSON and publishing the message to the MQTT broker.
   doc.toJson(msg, MSG_BUFFER_SIZE);
   Serial.print("Publish message: ");
   Serial.println(msg);
   client.publish(MQTT_TOPIC, msg);
 
-  // Wait a few seconds between measurements. (The DHT is a very slow sensor)
+  // Wait a few seconds between measurements.
   delay(MEASURE_DELAY);
 }

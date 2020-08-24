@@ -15,23 +15,22 @@ import { IDENTITY_PROVIDER, USERNAME, PASSWORD, LOCATION, UPDATER_DELAY_MS, DEBU
 // Global variables
 var session;
 var login_called = false;
-var iot_location;
-var location_called = false;
 const iot_store = $rdf.graph();
+const iot_fetcher = new $rdf.Fetcher(iot_store);
 const iot_updater = new $rdf.UpdateManager(iot_store);
-var previous_update = Date.now();
-var local_store = new $rdf.Formula;
 var message_amount = 0;
+var webId;
 
 // RDF Namespaces
-const LDP = new $rdf.Namespace('https://www.w3.org/ns/ldp#');
 const SPACE = new $rdf.Namespace('http://www.w3.org/ns/pim/space#');
 const SOLID = new $rdf.Namespace('http://www.w3.org/ns/solid/terms#');
 const RDF = new $rdf.Namespace('http://www.w3.org/1999/02/22-rdf-syntax-ns#');
 const SCHEMA = new $rdf.Namespace('http://schema.org/');
+const resources = {};
 
 // Save rdf data to the configured Solid Pod
-export const save = async function (rdf_data) {
+export const save = async function (message) {
+    //console.log(message);
     // Logging in if we haven't already -- Making sure the function only gets called once
     if (!session) {
         if(!login_called){
@@ -40,43 +39,71 @@ export const save = async function (rdf_data) {
             session = await login().catch((err) => {
                 if (DEBUG) console.error(`Error logging in: ${err}`);
             });
-            if (DEBUG) console.log(`Logged in as: ${session.webId}`);
+            webId = session.webId;
+            if (DEBUG) console.log(`Logged in as: ${webId}`);
         } else {
+            // If we're not logged in yet, but the login function has already been called, just wait a bit.
             while(!session){
                 await sleep(1000);
             }
         }
     }
-    // Get the location of the IoT document and fetch it -- Making sure the function only gets called once
-    if (!iot_location) {
-        if(!location_called){
-            location_called = true;
-            iot_location = await get_or_create_iot_doc(session.webId);
+
+    // Check if a resource is not yet present
+    if (!resources[message.name]) {
+        // If no resource yet exists, create one.
+        var location = `https://${session.webId.split('/')[2]}/${LOCATION}${message.name}`;
+        var store = new $rdf.Formula;
+        var updated = Date.now();
+        var messages = 0;
+        var called = false;
+        var created = false
+        resources[message.name] = {location, store, updated, messages, called, created}
+    }
+
+    var resource = resources[message.name];    
+    // Create a document if it hasn't been done already -- Making sure the function gets called only once
+    if (!resource.created) {
+        if (!resource.called) {
+            if (DEBUG) console.log(`Creating new document at ${location} if it doesn't exist yet.`)
+            resource.called = true;
+            // Create resource if it didn't exist yet
+            await iot_fetcher.createIfNotExists($rdf.sym(location), 'text/turtle', '')
+                .then((res) => {
+                    if (DEBUG) console.log(`Created or found document at ${location}.`);
+                    resource.created = true;
+                })
+                .catch((err) => {
+                    if (DEBUG) console.error(`Error creating document: ${err}`);
+                });
         } else {
-            while(!iot_location){
+            // If the resource doesn't exist yet, but the function has already been called, just wait a bit.
+            while(!resource.created) {
                 await sleep(1000);
             }
         }
     }
-    // Adding our translated graph to the store
-    $rdf.parse(rdf_data, local_store, iot_location, 'text/n3');
-    message_amount++;
-    if (Date.now() - previous_update >= UPDATER_DELAY_MS) {
-        if (DEBUG) console.log(`Saving ${message_amount} new messages to Pod.`);
-        // Bunching up messages and sending them in a combined upload as not to overload the Solid server.
-        iot_updater.update(null, local_store, (uri, ok, err) => {
+
+    // Parsing the message in the local store
+    $rdf.parse(message.data, resource.store, resource.location, 'text/n3');
+    resource.messages++;
+    // Every so often, update the actual records in the Solid Pod
+    if(Date.now() - resource.updated >= UPDATER_DELAY_MS) {
+        if (DEBUG) console.log(`Updating the content at ${resource.location} with ${resource.messages} messages.`);
+        // Update the Pod
+        iot_updater.update(null, resource.store, (uri, ok, err) => {
             if (ok) {
-                if (DEBUG) console.log('Succesfully saved new messages to Pod.');
+                if (DEBUG) console.log(`Succesfully updated resource at ${uri}`);
             } else {
-                if (DEBUG) console.error(`Error updating the IoT document: ${err}`);
-            } 
+                if (DEBUG) console.log(`Error updating document: ${err}`);
+            }
         });
-        // Clearing the local store
-        local_store = new $rdf.Formula;
-        // Resetting the current time
-        previous_update = Date.now();
-        // Resetting message amount
-        message_amount = 0;
+        // Clear resource store
+        resource.store = new $rdf.Formula;
+        // Reset the update time
+        resource.updated = Date.now();
+        // Reset the message count
+        resource.messages = 0;
     }
 }
 
@@ -87,92 +114,6 @@ const login = async function () {
         if (DEBUG) console.error(`Error logging in: ${err}`);
     });
     return session;
-}
-
-// Discover storage location for our IoT document, create it if it doesn't exist yet. (Thijs Paelman/NotePod-Tripledoc)
-const get_or_create_iot_doc = async function (webId) {
-    // 1. Check if a Document tracking our IoT records already exists.
-    if (DEBUG) console.log('Checking if the IoT document already exists...')
-    // 1a. Load profile document
-    const store = $rdf.graph();
-    const fetcher = new $rdf.Fetcher(store);
-    const updater = new $rdf.UpdateManager(store);
-    const profile = store.sym(webId);
-    const profileDoc = profile.doc();
-    await fetcher.load(profileDoc).catch((err) => {
-        if (DEBUG) console.error(`Error loading profile document: ${err}`);
-    });
-    const solidstorage = store.any(profile, SPACE('storage'), null, profileDoc);
-    solidstorage.value += LOCATION;
-
-    // 1b. Load private type index (contains file references)
-    const privateTypeIndex = store.any(profile, SOLID('privateTypeIndex'), null, profileDoc);
-    await fetcher.load(privateTypeIndex).catch((err) => {
-        if (DEBUG) console.error(`Error loading private type index: ${err}`);
-    });
-
-    // 1c. Search for the private type registration
-    const newBlankNode = new $rdf.BlankNode;
-    const st1 = new $rdf.Statement(newBlankNode, RDF('type'), SOLID('TypeRegistration'), privateTypeIndex);
-    const st2 = new $rdf.Statement(newBlankNode, SOLID('forClass'), SCHEMA('TextDigitalDocument'), privateTypeIndex);
-    const matchingSubjects1 = store.match(null, st1.predicate, st1.object, st1.graph).map(quad => quad.subject);
-    const matchingSubjects2 = store.match(null, st2.predicate, st2.object, st2.graph).map(quad => quad.subject);
-    let iotTypeRegistration = matchingSubjects1.find((subj) => {
-        return matchingSubjects2.includes(subj);
-    });
-
-    // 1d. Private type registration not found, making one
-    if (!iotTypeRegistration) {
-        if (DEBUG) console.log(`Didn't find an IoT type registration, making one...`);
-        await updater
-            .update(null, [st1, st2])
-            .then((ok) => {
-                if (DEBUG) console.log('Made IoT type registration');
-            }, (err) => {
-                if (DEBUG) console.error(`Error adding IoT type registration: ${err}`);
-            });
-        iotTypeRegistration = newBlankNode;
-    }
-
-    // 1e. Actually look for IoT document
-    const st3 = new $rdf.Statement(iotTypeRegistration, SOLID('instance'), solidstorage, privateTypeIndex);
-    let iotDoc = store.any(st3.subject, st3.predicate, null, st3.graph);
-
-    // 2. If the IoT document doesn't exist, create one
-    if (!iotDoc) {
-        if (DEBUG) console.log('Document not found, creating one...');
-        await updater
-            .update(null, [st3])
-            .then(() => { 
-                if (DEBUG) console.log('Updated privateTypeIndex with a storage');
-            }, (err) => { 
-                if (DEBUG) console.error(`Error updating privateTypeIndex ${err}`);
-            });
-        await fetcher.createIfNotExists(solidstorage, 'text/turtle', '')
-            .then((response) => {
-                if (response.status === 201 && DEBUG) console.log('Created new IoT document.');
-                else if (response.status === 200) throw new Error(solidstorage.value + ' is already in use by another application. Remove this file first...');
-                else throw new Error('Unknown response status: ' + response.status + ' but it didn\'t seem to matter (bug)');
-            })
-            .catch((err) => { 
-                if (DEBUG) console.log(`Failed to create new document: ${err}`); 
-            });
-        iotDoc = solidstorage;
-    } else {
-        // Sanity check: The document is mentioned in the type index, but is it actually there?
-        await fetcher.createIfNotExists(iotDoc, 'text/turtle', '')
-            .then((response) => { 
-                if (response.status === 201 && DEBUG) console.warn(`Document was mentioned in type index, but didn't actually exist. Fixed this for you!`)
-            })
-            .catch((err) => {
-                if (DEBUG) console.error(`Error running sanity check: ${err}`);
-            });
-    }
-
-    if (DEBUG) console.log(`IoT document found or created, its location is: ${iotDoc.value}`);
-
-    // Return location of the IoT doc
-    return iotDoc.value;
 }
 
 // Simple sleep function

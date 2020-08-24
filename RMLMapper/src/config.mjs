@@ -10,8 +10,12 @@ export const DEBUG = true;
 export const SHOW_DATA = false;
 
 // MQTT constants
-export const MQTT_SERVER = '192.168.0.249';
+export const MQTT_SERVER = 'solid.pool42.io';
 export const MQTT_TOPIC = 'solid_iot_one';
+
+// MQTT constants alt
+// export const MQTT_SERVER = 'broker.hivemq.com';
+// export const MQTT_TOPIC = 'solid_iot_two';
 
 // Mapping constants (which SenML unit maps to which om-2 unit and quantity) (SSN/SAREF)
 export const RML_FILE = './src/rml/rml_ssn.ttl';
@@ -148,7 +152,8 @@ import {username, password} from './credentials.mjs';
 // export const IDENTITY_PROVIDER = 'https://inrupt.net';
 // export const IDENTITY_PROVIDER = 'https://solid.community';
 export const IDENTITY_PROVIDER = 'https://solidweb.org';
+// export const IDENTITY_PROVIDER = 'https://pods.pool42.io:8443';
 export const USERNAME = username;
 export const PASSWORD = password;
-export const LOCATION = 'private/iot/iot_data.ttl'
+export const LOCATION = 'private/iot/'
 export const UPDATER_DELAY_MS = 30e3;

@@ -36,10 +36,12 @@ connect_mqtt((msg) => {
             if (SHOW_DATA) console.log(senml_data);
             // Preprocess data before mapping
             preprocess(senml_data, (json_string) => {
-                if (SHOW_DATA) console.log(`4. Data preprocessed:\n${json_string}`);
+                if (SHOW_DATA) console.log(`4. Data preprocessed:`);
+                if (SHOW_DATA) console.log(json_string);
                 // Mapping data to RDF format
                 map_to_rdf(json_string, (rdf_data) => {
-                    if (SHOW_DATA) console.log(`5. Mapped to RDF:\n${rdf_data}`);
+                    if (SHOW_DATA) console.log(`5. Mapped to RDF:`);
+                    if (SHOW_DATA) console.log(rdf_data);
                     // Saving the graph to the Solid Pod
                     save(rdf_data);
                 });

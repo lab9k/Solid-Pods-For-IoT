@@ -24,10 +24,16 @@ export const preprocess = function (data, callback) {
     var filtered_data = filter_data(data);
     // 2. Apply actual preprocessing step
     var preprocessed_data = anteprocess(filtered_data);
-    // 3. Stringify
-    var preprocessed_string = JSON.stringify(preprocessed_data);
-    // Pass the reconstructed message on to callback function.
-    callback(preprocessed_string);
+    // 3. Stringify and pass onto callback function
+    preprocessed_data.forEach(async (entry) => {
+        await sleep(50); // Sleeping for 50ms magically resolves messing up the records in the mapping step... don't know why.
+        callback({
+            name: entry.name, 
+            data: JSON.stringify(preprocessed_data.filter((datapoint) => {
+                return datapoint.name === entry.name
+            }))
+        });
+    })
 }
 
 // The actual pre-processing step
@@ -95,4 +101,9 @@ const filter_data = function (senml_data) {
         return false;
     });
     return filtered_data;
+}
+
+// Simple sleep function
+const sleep = function(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
 }

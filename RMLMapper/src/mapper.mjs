@@ -16,7 +16,7 @@ import { RML_FILE, RML_OPTIONS, DEBUG } from './config.mjs';
 var rml_file;
 
 // Take stringified JSON object and map it to rdf
-export const map_to_rdf = async function (jsonstring, callback) {
+export const map_to_rdf = async function (json, callback) {
     // Load thr rml file into memory (once only)
     if (!rml_file) {
         rml_file = await load_file_to_string(RML_FILE).catch((err) => {
@@ -26,10 +26,11 @@ export const map_to_rdf = async function (jsonstring, callback) {
     }
     // Map the jsonstring to RDF format, on the condition it is loaded correctly.
     if (!!rml_file) {
-        var rdf_file = await rml.parseFileLive(rml_file, { input: jsonstring }, RML_OPTIONS).catch((err) => {
+        var rdf_file = await rml.parseFileLive(rml_file, { input: json.data }, RML_OPTIONS).catch((err) => {
             if (DEBUG) console.error(err);
         });
-        callback(rdf_file);
+        var response = {name: json.name, data: rdf_file};
+        callback(response);
     }
 }
 

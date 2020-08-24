@@ -9,8 +9,7 @@ import {
   Welcome,
   RegistrationSuccess,
   Profile,
-  GameList,
-  GamePage,
+  IoTGraph,
   FormModelConverter,
   FormModelRenderer,
   TextEditor
@@ -28,19 +27,14 @@ const privateRoutes = [
     component: Profile
   },
   {
-    id: 'tictactoe',
-    path: '/tictactoe',
-    component: GameList
-  },
-  {
-    id: 'tictactoegame',
-    path: '/tictactoe/:gameId',
-    component: GamePage
-  },
-  {
     id: 'text-editor',
     path: '/text-editor',
     component: TextEditor
+  },
+  {
+    id: 'iot-graph',
+    path: '/iot-graph',
+    component: IoTGraph
   },
   {
     id: 'formmodelconverter',

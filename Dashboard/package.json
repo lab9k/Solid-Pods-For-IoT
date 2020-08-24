@@ -16,6 +16,8 @@
     "chalk": "2.4.1",
     "dotenv": "6.0.0",
     "dotenv-expand": "4.2.0",
+    "echarts": "4.7.0",
+    "echarts-for-react": "2.0.15-beta.1",
     "flag-icon-css": "^3.3.0",
     "fork-ts-checker-webpack-plugin-alt": "0.4.14",
     "fs-extra": "7.0.0",

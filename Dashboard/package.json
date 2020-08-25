@@ -43,6 +43,7 @@
     "react-transition-group": "^4.1.1",
     "shacl-js": "0.0.1",
     "solid-auth-client": "^2.3.0",
+    "solid-file-client": "^1.0.5",
     "styled-components": "^4.1.3"
   },
   "scripts": {

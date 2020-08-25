@@ -1,3 +1,4 @@
-import {retrieveStore, getDevices, getObjects, getResources, getData, getResourceTypes} from './rdf-helper';
+import {retrieveStore, getSensor, getMeasurements, getData} from './rdf-helper';
+import {getFiles} from './solid-file-helper';
 
-export {retrieveStore, getDevices, getObjects, getResources, getData, getResourceTypes};
+export {retrieveStore, getSensor, getMeasurements, getFiles, getData};

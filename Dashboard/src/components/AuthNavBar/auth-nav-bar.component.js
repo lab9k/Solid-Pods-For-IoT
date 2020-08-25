@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { NavBar, Notification } from '@components';
 import { useTranslation } from 'react-i18next';
 import { NavBarContainer } from './children';
-import { ldflexHelper, errorToaster, storageHelper } from '@utils';
+import { ldflexHelper, errorToaster } from '@utils';
 import { NavigationItems } from '@constants';
 
 type Props = {
@@ -30,21 +30,6 @@ const AuthNavBar = React.memo((props: Props) => {
         inboxes = [
           ...inboxes,
           { path: globalInbox, inboxName: t('navBar.notifications.global'), shape: 'default' }
-        ];
-      }
-      /**
-       * Get user's game inbox path from pod.
-       */
-      const appStorage = await storageHelper.getAppStorage(webId);
-      const appInbox = await ldflexHelper.discoverInbox(`${appStorage}settings.ttl`);
-
-      /**
-       * create an inbox object to send over notification component
-       */
-      if (appInbox) {
-        inboxes = [
-          ...inboxes,
-          { path: appInbox, inboxName: t('navBar.notifications.tictactoe'), shape: 'default' }
         ];
       }
       /**

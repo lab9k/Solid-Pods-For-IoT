@@ -7,6 +7,13 @@ export class Graph extends React.Component {
     getOptions = () => {
         var timestamps = this.props.data.map(data => data.timestamp);
         var measurements = this.props.data.map(data => parseFloat(data.value));
+        var title = this.props.object.split('/');
+        title = title[title.length-1];
+        var name = title.split('_');
+        name = name[name.length-1];
+        var unit = this.props.data[0].unit;
+        unit = (!!unit) ? unit.split('/')[unit.split('/').length-1] : undefined;
+        console.log(unit);
         return {
             tooltip: {
                 trigger: 'axis',
@@ -16,7 +23,7 @@ export class Graph extends React.Component {
             },
             title: {
                 left: 'center',
-                text: this.props.object.value,
+                text: title,
             },
             toolbox: {
                 feature: {
@@ -41,7 +48,7 @@ export class Graph extends React.Component {
             yAxis: {
                 type: 'value',
                 boundaryGap: [0, '100%'],
-                name: `${this.props.type}`,
+                name: unit,
                 axisLabel:{
                     textStyle: {fontsize: 10}
                 }
@@ -64,7 +71,7 @@ export class Graph extends React.Component {
                 }
             }],
             series: [{ 
-                name: this.props.data.type,
+                name: name,
                 data: measurements,
                 type: 'line',
                 itemStyle: {

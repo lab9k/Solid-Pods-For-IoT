@@ -3,12 +3,12 @@ import { errorToaster } from '@utils';
 import {retrieveStore, getDevices, getObjects, getResources, getData, getResourceTypes} from './utils';
 import {Visualize, Textinput, Selectinput} from './components';
 import{
-    IoTGraphWrapper,
-    IoTGraphContainer,
+    IoTDashboardWrapper,
+    IoTDashboardContainer,
     Header
-} from './iot-graph.style';
+} from './iot-dashboards.style';
 
-export class IoTGraph extends React.Component {
+export class IoTDashboard extends React.Component {
     // Program state
     state = {
         url:'',
@@ -84,8 +84,8 @@ export class IoTGraph extends React.Component {
 
     render(){
         return(
-            <IoTGraphWrapper>
-                <IoTGraphContainer>
+            <IoTDashboardWrapper>
+                <IoTDashboardContainer>
                     <Header>
                         <h3>Historical data visualization</h3>
                         <p>This page allows you to visualize the historical sensor data saved in your solid pod.</p>
@@ -97,10 +97,10 @@ export class IoTGraph extends React.Component {
                     <Selectinput onSubmit = {this.onReceiveObject} options={this.state.objects} label="Pick an object" option={this.state.object.value || this.state.object}></Selectinput>
                     <Selectinput onSubmit = {this.onReceiveType} options={this.state.types} label="Pick a resource type" option={this.state.type}></Selectinput>
                     <Visualize data = {this.state.data} object = {this.state.object} type = {this.state.type}></Visualize>
-                </IoTGraphContainer>
-            </IoTGraphWrapper>
+                </IoTDashboardContainer>
+            </IoTDashboardWrapper>
         )
     }
 }
 
-export default IoTGraph;
+export default IoTDashboard;

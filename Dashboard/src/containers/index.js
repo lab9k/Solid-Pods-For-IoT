@@ -4,7 +4,7 @@ import PageNotFound from './PageNotFound';
 import Welcome from './Welcome';
 import Profile from './Profile';
 import TextEditor from './TextEditor';
-import IoTGraph from './IoTGraph';
+import IoTDashboard from './IoTDashboard';
 import { FormModelConverter, FormModelRenderer } from './FormModel';
 
 export {
@@ -12,7 +12,7 @@ export {
   Register,
   RegistrationSuccess,
   PageNotFound,
-  IoTGraph,
+  IoTDashboard,
   Welcome,
   Profile,
   FormModelConverter,

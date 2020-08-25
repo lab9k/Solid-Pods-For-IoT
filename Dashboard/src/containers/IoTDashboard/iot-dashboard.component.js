@@ -1,8 +1,8 @@
 import React from 'react';
 import { errorToaster } from '@utils';
-import {retrieveStore, getDevices, getObjects, getResources, getData, getResourceTypes} from './utils';
-import {Visualize, Textinput, Selectinput} from './components';
-import{
+import { retrieveStore, getFiles, getSensor, getMeasurements, getData } from './utils';
+import { Visualize, Textinput, Selectinput } from './components';
+import {
     IoTDashboardWrapper,
     IoTDashboardContainer,
     Header
@@ -11,92 +11,63 @@ import{
 export class IoTDashboard extends React.Component {
     // Program state
     state = {
-        url:'',
+        files: [],
+        file: 'None',
         store: undefined,
         fetcher: undefined,
-        devices: [],
-        device: 'None',
-        objects: [],
-        object: 'None',
-        types: [],
-        type: 'None',
         data: []
-    }      
+    }
 
-    // Callback function after the database URL is commited
-    onReceiveURL = (url) => {
-        // Save URL to the program state
-        this.setState({url, devices: [], objects: [], data: [], device: 'None', object: 'None', type: 'None', types: []}, () => {
-            // Fetch the database into a store
-            retrieveStore(url).then(({store, fetcher}) => {
-                // Save the store and fetcher into the program state
-                this.setState({store, fetcher}, () => {
-                    // Obtaining the devices from the database
-                    var devices = getDevices(store);
-                    // Adding the devices to the program state
-                    this.setState({devices});
+    async componentDidMount() {
+        console.log('mounted');
+        var files = await getFiles().catch((err) => {
+            errorToaster(err);
+        });
+        this.setState({ files }, () => {
+            console.log(`Set files state to ${files}`);
+        });
+    }
+
+    onReceiveFile = (file) => {
+        this.setState({ file }, () => {
+            retrieveStore(file)
+                .then(({ store, fetcher }) => {
+                    // Save the store and fetcher into the program state
+                    this.setState({ store, fetcher, data: [] }, () => {
+                        this.onReceiveStore();
+                    })
                 })
-            }).catch(err => errorToaster(err));
-        });
-    }
-
-    // Callback function for when the device is picked from the dropdown
-    onReceiveDevice = (device) => {
-        // Check if the selected item isn't the default "Select an option"
-        this.setState({device}, () => {
-            if(this.state.device !== 'None'){
-                // Getting the objects contained by the device
-                var objects = getObjects(this.state.store, device);
-                this.setState({objects});
-            } else {
-                this.setState({data: [], objects: [], object: 'None', type: 'None', types: []});
-            }
-        });
-
-    }
-
-    // Callback function for when the object is picked from the dropdown
-    onReceiveObject = (object) => {
-        this.setState({object}, () => {
-            if(this.state.object !== 'None'){
-                // Obtaining the resources from the object
-                var resources = getResources(this.state.store, this.state.object);
-                var types = getResourceTypes(this.state.store, resources);
-                this.setState({types});
-            } else {
-                this.setState({data: [], type: 'None', types: []}, () => this.onReceiveType('None'));
-            }
+                .catch(err => errorToaster(err));
+            console.log(this.state.file);
         })
     }
 
-    // Callback function for when the resource type is picked from the dropdown
-    onReceiveType = (type) => {
-        this.setState({type}, () => {
-            if(this.state.type !== 'None'){
-                console.log(this.state.type)
-                var data = getData(this.state.store, this.state.object, type);
-                this.setState({data});
-            } else {
-                this.setState({data: []});
-            }
-        });
+    onReceiveStore = () => {
+        var {sensor, type} = getSensor(this.state.store);
+        if (type === 'sosa' || type === 'saref') {
+            var measurements = getMeasurements(sensor, type, this.state.store);
+            var data = getData(measurements, type, this.state.store);
+            console.log(data);
+            this.setState({data}, () => {
+                console.log("Data set as state");
+            });
+        } else {
+            errorToaster('No SSN/SOSA or SAREF device found in this file.');
+        }
     }
 
-    render(){
-        return(
+    render() {
+        return (
             <IoTDashboardWrapper>
                 <IoTDashboardContainer>
                     <Header>
-                        <h3>Historical data visualization</h3>
-                        <p>This page allows you to visualize the historical sensor data saved in your solid pod.</p>
-                        <p>Start by entering the URL of the location where the database you wish to visualize is stored.</p>
-                        <p>From there, you can pick from the available devices and its objects which resource needs to be visualized.</p>
+                        <h3>IoT Dashboard</h3>
+                        <p>This page allows you to manage and visualize the IoT data stored in your pod in either SAREF or SSN format.</p>
+                        <p>By default it will look for files in the /private/iot folder.</p>
+                        <p>Please pick the file you would like to manage from the dropdown menu.</p>
                     </Header>
-                    <Textinput onSubmit = {this.onReceiveURL} default = {`https://${this.props.webId.split('/')[2]}/private/leshandata.ttl`}></Textinput>
-                    <Selectinput onSubmit = {this.onReceiveDevice} options={this.state.devices} label="Pick a device" option={this.state.device.value || this.state.device}></Selectinput>
-                    <Selectinput onSubmit = {this.onReceiveObject} options={this.state.objects} label="Pick an object" option={this.state.object.value || this.state.object}></Selectinput>
-                    <Selectinput onSubmit = {this.onReceiveType} options={this.state.types} label="Pick a resource type" option={this.state.type}></Selectinput>
-                    <Visualize data = {this.state.data} object = {this.state.object} type = {this.state.type}></Visualize>
+                    <Selectinput onSubmit={this.onReceiveFile} options={this.state.files} label="Select a file." option={this.state.file}></Selectinput>
+                    <Visualize data = {this.state.data} object = {this.state.file} type = {this.state.type}></Visualize>
                 </IoTDashboardContainer>
             </IoTDashboardWrapper>
         )

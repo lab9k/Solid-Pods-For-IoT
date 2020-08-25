@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const IoTGraphWrapper = styled.section`
+export const IoTDashboardWrapper = styled.section`
   display: flex;
   flex: 1 0 auto;
   align-items: center;
@@ -10,7 +10,7 @@ export const IoTGraphWrapper = styled.section`
   padding: 60px 0;
 `
 
-export const IoTGraphContainer = styled.div`
+export const IoTDashboardContainer = styled.div`
   box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);
   background-color: white;
   max-width: 900px;

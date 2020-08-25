@@ -9,7 +9,7 @@ import {
   Welcome,
   RegistrationSuccess,
   Profile,
-  IoTGraph,
+  IoTDashboard,
   FormModelConverter,
   FormModelRenderer,
   TextEditor
@@ -32,9 +32,9 @@ const privateRoutes = [
     component: TextEditor
   },
   {
-    id: 'iot-graph',
-    path: '/iot-graph',
-    component: IoTGraph
+    id: 'iot-dashboard',
+    path: '/iot-dashboard',
+    component: IoTDashboard
   },
   {
     id: 'formmodelconverter',

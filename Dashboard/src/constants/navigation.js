@@ -18,7 +18,7 @@ export const NavigationItems = [
     id: 'solid-iot',
     icon: '/img/icon/things.svg',
     label: 'navBar.solid-iot',
-    to: '/iot-graph'
+    to: '/iot-dashboard'
   },
   {
     id: 'text-editor',

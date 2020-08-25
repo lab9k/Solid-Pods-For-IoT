@@ -27,6 +27,14 @@ export default class Provider {
         value: 'https://solid.community',
         registerLink: 'https://solid.community/register',
         description: 'Lorem ipsum dolor sit non consectetur'
+      },
+      {
+        id: 'solid-web',
+        label: 'Solid Web',
+        image: '/img/Solid.png',
+        value: 'https://solidweb.org',
+        registerLink: 'https://solidweb.org/register',
+        description: 'Lorem ipsum dolor sit non consectetur'
       }
     ];
   }

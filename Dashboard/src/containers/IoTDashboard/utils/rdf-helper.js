@@ -25,7 +25,7 @@ export function retrieveStore(url) {
                         try {
                             parse(response.responseText, store, url, 'text/turtle');
                             // Parsing succesful --> Return store and fetcher
-                            resolve({ store, fetcher });
+                            resolve({ store, fetcher, webId: session.webId });
                         } catch (err) {
                             reject(`Failed parsing: ${err.message}`)
                         }

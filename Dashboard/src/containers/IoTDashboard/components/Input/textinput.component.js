@@ -23,19 +23,18 @@ export class Textinput extends React.Component {
     render(){
         return(
             <TextinputWrapper>
-                <p>Insert database URL:</p>
+                <p>{this.props.title}:</p>
                 <form onSubmit = {this.onSubmit} style = {{display: 'flex'}}>
                     <input
                         type='text'
                         name='url'
-                        placeholder='Insert database url...'
                         style={{flex: '10', padding: ''}}
                         value={this.state.url}
                         onChange={this.onChange}
                     />
                     <input
                         type='submit'
-                        value='submit'
+                        value={this.props.label}
                         className='btn'
                         style={{flex: '1'}}
                     />

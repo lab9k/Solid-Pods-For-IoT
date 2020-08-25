@@ -63,7 +63,7 @@
       "noinbox": "Global inbox not found. Please create one and try again.",
       "fetchingError": "Error fetching notifications from Pod"
     },
-    "tictactoe": "Game"
+    "solid-iot": "IoT Dashboard"
   },
   "footer": {
     "version": "Version"

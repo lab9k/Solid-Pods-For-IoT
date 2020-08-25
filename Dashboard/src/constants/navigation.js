@@ -15,10 +15,10 @@ export const NavigationItems = [
     to: '/profile'
   },
   {
-    id: 'tictactoe',
-    icon: '/img/icon/tictactoe.svg',
-    label: 'navBar.tictactoe',
-    to: '/tictactoe'
+    id: 'solid-iot',
+    icon: '/img/icon/things.svg',
+    label: 'navBar.solid-iot',
+    to: '/iot-graph'
   },
   {
     id: 'text-editor',

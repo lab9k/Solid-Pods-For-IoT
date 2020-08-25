@@ -7,7 +7,6 @@ import Badge from './Badge';
 import Loader from './Loader';
 import ToasterNotification from './ToasterNotification';
 import Input from './Input';
-import LanguageDropdown from './LanguageDropdown';
 import Toaster from './ToasterNotification/toaster.component';
 import Select from './Select';
 import ConfirmationDialog from './ConfirmationDialog';
@@ -24,7 +23,6 @@ export {
   Badge,
   Loader,
   Input,
-  LanguageDropdown,
   Toaster,
   Select,
   Labeled

@@ -84,7 +84,7 @@ export class IoTDashboard extends React.Component {
                         <p>Please pick the file you would like to manage from the dropdown menu.</p>
                     </Header>
                     <Selectinput onSubmit={this.onReceiveFile} options={this.state.files} label="Select a file" option={this.state.file}></Selectinput>
-                    {(this.state.file !== 'None') ? <Textinput onSubmit={this.onShare} default={'https://example-friend.com/profile/card#me'} title='Share this file' label='share'></Textinput> : <></>}
+                    {(this.state.file !== 'None') ? <Textinput onSubmit={this.onShare} default={'https://florsanders.inrupt.net/profile/card#me'} title='Share this file' label='share'></Textinput> : <></>}
                     <Visualize data = {this.state.data} object = {this.state.file} type = {this.state.type}></Visualize>
                 </IoTDashboardContainer>
             </IoTDashboardWrapper>

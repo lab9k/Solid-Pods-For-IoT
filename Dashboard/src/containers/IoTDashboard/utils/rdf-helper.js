@@ -42,8 +42,8 @@ export function getSensor(store) {
     var sensor_sosa = store.any(null, RDF('type'), SOSA('Sensor'), null);
     var sensor_saref = store.any(null, RDF('type'), SAREF('Device'), null);
 
-    var sensor = !!(sensor_sosa.value) ? sensor_sosa : sensor_saref;
-    var type = !!(sensor_sosa.value) ? 'sosa' : (!!(sensor_saref.value) ? 'saref' : 'none');
+    var sensor = !!(sensor_sosa) ? sensor_sosa : sensor_saref;
+    var type = !!(sensor_sosa) ? 'sosa' : (!!(sensor_saref) ? 'saref' : 'none');
     return { sensor, type };
 }
 

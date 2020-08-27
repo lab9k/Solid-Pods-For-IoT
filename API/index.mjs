@@ -1,33 +1,18 @@
-import fs from 'fs';
+/* Importing require libraries */
+import express from 'express';
 
-function getFileList() {
-    return new Promise((resolve, reject) => {
-        fs.readdir('static', (err, files) => {
-            if (err) {
-                reject(err);
-            } else {
-                resolve(files);
-            }
-        });
-    });
-}
+/* Initializing libraries */
+const app = express();
 
-function getFile(file) {
-    return new Promise((resolve, reject) => {
-        fs.readFile('static/' + file, (err, data) => {
-            if (err) {
-                reject(err);
-            } else {
-                resolve(data.toString());
-            }
-        });
-    });
-}
+/* Define program constants */
+const LISTEN_PORT = 8090;
 
-getFileList()
-    .then(files => console.log(files))
-    .catch(err => console.error(err));
+/* Importing routers from files */
+import { router as localFilesRouter } from './routes/localFiles.mjs';
 
-getFile('saref1.ttl')
-    .then(content => console.log(content))
-    .catch(err => console.error(err));
+/* Define routes and middleware */
+app.use('/v1/localfiles', localFilesRouter);
+
+/* Start services */
+console.info(`Starting to listen on port ${LISTEN_PORT}...`);
+app.listen(LISTEN_PORT);

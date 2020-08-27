@@ -1,0 +1,12 @@
+@prefix : <#>.
+@prefix s: <https://w3id.org/saref#>.
+@prefix XML: <http://www.w3.org/2001/XMLSchema#>.
+
+<dev:mac:b4e62dfffe703f4d_light>
+    a s:Device;
+    s:makesMeasurement
+        <uuid:052ddd67-7b4c-4ef2-b196-21a9fbc159c9>.
+<uuid:052ddd67-7b4c-4ef2-b196-21a9fbc159c9>
+    a s:Measurement;
+    s:hasTimeStamp "2020-08-26T06:49:02Z"^^XML:dateTIme;
+    s:hasValue "14"^^XML:float.

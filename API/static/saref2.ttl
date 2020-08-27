@@ -1,0 +1,15 @@
+@prefix : <#>.
+@prefix s: <https://w3id.org/saref#>.
+@prefix om: <http://www.ontology-of-units-of-measure.org/resource/om-2/>.
+@prefix XML: <http://www.w3.org/2001/XMLSchema#>.
+
+<dev:mac:807d3afffe367a58_humidity>
+    a s:Device;
+    s:makesMeasurement
+        <uuid:188b7a07-777a-4cc2-b293-e3dcf3364ecc>,
+    s:measuresProperty om:RelativeHumidity.
+<uuid:188b7a07-777a-4cc2-b293-e3dcf3364ecc>
+    a s:Measurement;
+    s:hasTimeStamp "2020-08-26T06:53:03Z"^^XML:dateTIme;
+    s:hasValue "20"^^XML:float;
+    s:isMeasuredIn om:percent.

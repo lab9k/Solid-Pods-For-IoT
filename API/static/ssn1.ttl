@@ -1,0 +1,16 @@
+@prefix : <#>.
+@prefix sos: <http://www.w3.org/ns/sosa/>.
+@prefix om: <http://www.ontology-of-units-of-measure.org/resource/om-2/>.
+@prefix XML: <http://www.w3.org/2001/XMLSchema#>.
+
+<dev:mac:807d3afffe367a58_temperature>
+    a sos:Sensor;
+    sos:madeObservation
+        <uuid:0002548a-510f-4636-adaa-7ff3d4009b54>,
+    sos:observes om:Temperature.
+<uuid:0002548a-510f-4636-adaa-7ff3d4009b54>
+    a sos:Observation;
+    sos:hasResult <uuid:0002548a-510f-4636-adaa-7ff3d4009b54_result>;
+    sos:resultTime "2020-08-25T07:05:31Z"^^XML:dateTIme.
+<uuid:0002548a-510f-4636-adaa-7ff3d4009b54_result>
+a om:Measure; om:hasNumericalValue "22"^^XML:float; om:hasUnit om:degreeCelsius.

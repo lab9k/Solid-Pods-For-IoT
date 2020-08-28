@@ -1,43 +1,30 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# IoT Dashboard
 
-## Available Scripts
+## Installation
 
-In the project directory, you can run:
+- Install [node.js](https://nodejs.org/en/).
+- Open a terminal in the `RMLMapper` folder and run `npm install` to install the dependencies.
+  A list of the used packages can be found in `package.json` under `"dependencies"`.
 
-### `npm start`
+## Usage
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### To use the application in a development/test environment:
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+- Start the program with `npm start`.
+- Open [http://localhost:3000](http://localhost:3000) to view the webpage in your browser.
+- Go to the IoT Dashboard tab, the application will look for files in the `/private/iot/` folder on the storage part of your Solid Pod.
+- Select one of the available files, if it contains valid data it will be visualized in an interactive graph.
+  Options are available to share the data as well as copy it to clipboard in JSON format.
 
-### `npm test`
+### Other available scripts
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- `npm run build`: Builds the react app for production in the `build` folder. The app can then be deployed.
+- `npm run eject`: Copies all the configuration files into the project for full control over them. In principle you don't ever have to use eject.
+  Note: This is a one-way operation!
 
-### `npm run build`
+## React: Learn more.
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
+Note: This project was bootstrapped with Solid [React Application Generator](https://github.com/inrupt/generator-solid-react)  based on [Create React App](https://github.com/facebook/create-react-app).
 
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 

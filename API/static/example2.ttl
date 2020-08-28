@@ -6,7 +6,7 @@
 <dev:mac:807d3afffe367a58_humidity>
     a s:Device;
     s:makesMeasurement
-        <uuid:188b7a07-777a-4cc2-b293-e3dcf3364ecc>,
+        <uuid:188b7a07-777a-4cc2-b293-e3dcf3364ecc>;
     s:measuresProperty om:RelativeHumidity.
 <uuid:188b7a07-777a-4cc2-b293-e3dcf3364ecc>
     a s:Measurement;

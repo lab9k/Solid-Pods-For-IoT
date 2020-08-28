@@ -6,7 +6,7 @@ import cors from 'cors';
 const app = express();
 
 /* Define program constants */
-const LISTEN_PORT = 8090;
+const LISTEN_PORT = 8030;
 
 /* Importing routers from files */
 import { router as localFilesRouter } from './routes/localFiles.mjs';
@@ -17,4 +17,4 @@ app.use('/v1/localfiles', localFilesRouter);
 
 /* Start services */
 console.info(`Starting to listen on port ${LISTEN_PORT}...`);
-app.listen(LISTEN_PORT, '127.0.0.1');
+app.listen(LISTEN_PORT, '0.0.0.0');

@@ -12,6 +12,7 @@ import { getFileList, getFile } from '../helpers/staticFileHelper.mjs';
 // Get a list of all local files available
 router.get('/', async (req, res) => {
     try {
+        console.log('Requested file list...');
         const files = await getFileList();
         res.status(200).json({
             value: files.map(file => {
@@ -34,6 +35,7 @@ router.get('/', async (req, res) => {
 router.get('/:filename', async (req, res) => {
     try {
         const filename = req.params.filename;
+        console.log(`Requested file contents: ${filename}`);
         const file = await getFile(filename);
         res.status(200).set('Content-Type', 'text/turtle').send(file);
     } catch (err) {

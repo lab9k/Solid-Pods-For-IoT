@@ -1,3 +1,10 @@
+/***************************************
+ * Title: Static File Helper
+ * Description: Handles the reading of the files in the static subfolder
+ * Author: Flor Sanders
+ * Version: 1.0
+*****************************************/
+
 /* Importing required libraries */
 import fs from 'fs';
 

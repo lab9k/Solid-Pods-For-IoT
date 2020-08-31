@@ -1,19 +1,30 @@
+/***************************************
+ * Title: Solid API
+ * Description: REST API which acts as a compatibility layer/wrapper around the Solid pods it has access to. Can also expose static turtle files for debugging purposes?
+ * Author: Flor Sanders
+ * Version: 1.0
+*****************************************/
+
 /* Importing require libraries */
 import express from 'express';
 import cors from 'cors';
+import bodyParser from 'body-parser';
 
 /* Initializing libraries */
 const app = express();
 
-/* Define program constants */
-const LISTEN_PORT = 8030;
+/* Importing configuration parameters */
+import { LISTEN_PORT } from './config.mjs';
 
 /* Importing routers from files */
-import { router as localFilesRouter } from './routes/localFiles.mjs';
+import { router as staticFilesRouter } from './routes/staticFiles.mjs';
+import { router as solidFilesRouter } from './routes/solidFiles.mjs';
 
 /* Define routes and middleware */
 app.use(cors());
-app.use('/v1/localfiles', localFilesRouter);
+app.use(bodyParser.json());
+app.use('/v1/localfiles', staticFilesRouter);
+app.use('/v1/solidfiles', solidFilesRouter);
 
 /* Start services */
 console.info(`Starting to listen on port ${LISTEN_PORT}...`);

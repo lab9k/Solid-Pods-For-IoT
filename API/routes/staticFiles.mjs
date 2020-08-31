@@ -1,3 +1,10 @@
+/***************************************
+ * Title: Static Files
+ * Description: Binds the routes to the correct functions for the static files.
+ * Author: Flor Sanders
+ * Version: 1.0
+*****************************************/
+
 /* Importing required libraries */
 import express from 'express';
 

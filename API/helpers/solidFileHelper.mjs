@@ -1,10 +1,17 @@
+/***************************************
+ * Title: Solid File Helper
+ * Description: Handles all the intricacies needed to fetch and update the files and access list on the Solid Pod
+ * Author: Flor Sanders
+ * Version: 1.0
+*****************************************/
 
 // Importing required libraries
 import auth from 'solid-auth-cli';
 import $rdf from 'rdflib';
+import { v4 as uuidv4 } from 'uuid';
 
 // Importing constants from the configuration file
-import {IDENTITY_PROVIDER, USERNAME, PASSWORD, ACCESSLISTLOCATION, DEBUG} from '../config.mjs'
+import { IDENTITY_PROVIDER, USERNAME, PASSWORD, ACCESSLISTLOCATION } from '../config.mjs'
 
 // Defining the ontology namespaces for querying the files
 const PIM = $rdf.Namespace('http://www.w3.org/ns/pim/space#');
@@ -12,20 +19,95 @@ const DCTERMS = $rdf.Namespace('http://purl.org/dc/terms/');
 const DCTYPE = $rdf.Namespace('http://purl.org/dc/dcmitype/');
 var RDF = $rdf.Namespace('http://www.w3.org/1999/02/22-rdf-syntax-ns#');
 
+// Function to add a file to the list of files we have access to
+export const addFileToList = async function (title, address) {
+    // If no title is given, a random uuid is created as filename
+    var title = !!title ? title : uuidv4() + '.ttl';
+    return new Promise((resolve, reject) => {
+        // Get the location of the access list
+        getLocation().then((location) => {
+            var store = $rdf.graph();
+            var accesslist = store.sym(location);
+            var accessdoc = accesslist.doc();
+            var updater = new $rdf.UpdateManager(store);
+            var fetcher = new $rdf.Fetcher(store);
+            // Fetch the access list
+            fetcher.load(accessdoc).then((res) => {
+                // Check if the address variable contains a valid uri
+                try {
+                    var addressNode = store.sym(address);
+                } catch(err) {
+                    reject('Could not interpret address as URI')
+                }
+                // Check if the file is already in the list
+                var result = store.any(addressNode, DCTERMS('title'), null, null);
+                if (!result) {
+                    // File was not yet present, adding it.
+                    var additions = [$rdf.st(addressNode, RDF('type'), DCTYPE('Dataset'), accessdoc), $rdf.st(store.sym(address), DCTERMS('title'), title, accessdoc)];
+                    updater.update(null, additions, (uri, ok, msg) => {
+                        if (!ok) {
+                            reject(msg);
+                        } else {
+                            resolve(`File ${title} was added.`);
+                        }
+                    });
+                } else {
+                    // File was already present 
+                    reject('File already present');
+                }
+
+            }).catch(err => reject(err));
+            
+        }).catch(err => reject(err));
+    });
+}
+
+// Function that removes an entry from the access list
+export const removeFileFromList = async function (address) {
+    return new Promise((resolve, reject) => {
+        // Get the location of the access list
+        getLocation().then((location) => {
+            var store = $rdf.graph();
+            var accesslist = store.sym(location);
+            var accessdoc = accesslist.doc();
+            var updater = new $rdf.UpdateManager(store);
+            var fetcher = new $rdf.Fetcher(store);
+            // Fetching the access list
+            fetcher.load(accessdoc).then((res) => {
+                // Check if the address variable contains a valid uri
+                try {
+                    var addressNode = store.sym(address);
+                } catch(err) {
+                    reject('Could not interpret address as URI')
+                }
+                // Searching for the title 
+                var title = store.any(addressNode, DCTERMS('title'), null, null);
+                var title = (!!title) ? title.value : title;
+                var removals = [$rdf.st(addressNode, RDF('type'), DCTYPE('Dataset'), accessdoc), $rdf.st(store.sym(address), DCTERMS('title'), title, accessdoc)];
+                updater.update(removals, null, (uri, ok, msg) => {
+                    if (!ok) {
+                        reject(msg);
+                    } else {
+                        resolve(`File ${title} was removed.`);
+                    }
+                });
+            }).catch(err => reject(err));
+        }).catch(err => reject(err));
+    });
+}
+
 // Function to obtain the list of files we have access to
 export const getFileList = async function () {
     return new Promise((resolve, reject) => {
         getLocation().then((location) => {
             var store = $rdf.graph();
             var fetcher = new $rdf.Fetcher(store);
-            console.log('loading file')
             fetcher.nowOrWhenFetched(location, (ok, msg, res) => {
                 if (!ok) {
                     reject(msg);
                 } else {
                     const store = $rdf.graph();
                     $rdf.parse(res.responseText, store, location, 'text/turtle');
-                    console.log('text parsed')
                     var quads = store.match(null, RDF('type'), DCTYPE('Dataset'), null);
                     var list = quads.map((quad) => {
                         var title = store.any(quad.subject, DCTERMS('title'), null, null);
@@ -45,7 +127,7 @@ export const getFile = async function (title) {
             var store = $rdf.graph();
             var fetcher = new $rdf.Fetcher(store);
             fetcher.nowOrWhenFetched(location, (ok, msg, res) => {
-                if(!ok){
+                if (!ok) {
                     reject(msg);
                 } else {
                     $rdf.parse(res.responseText, store, location, 'text/turtle');
@@ -53,7 +135,7 @@ export const getFile = async function (title) {
                     var file = (!!file) ? file.value : file;
                     // Fetch the file
                     fetcher.nowOrWhenFetched(file, (ok, msg, res) => {
-                        if(!ok) {
+                        if (!ok) {
                             reject(msg);
                         } else {
                             var content = res.responseText;
@@ -63,11 +145,11 @@ export const getFile = async function (title) {
                 }
             });
         }).catch(err => reject(err))
-    })
+    });
 }
 
 // Get the location of the access file
-const getLocation = async function() {
+const getLocation = async function () {
     return new Promise((resolve, reject) => {
         // Logging in if we haven't already
         login().then((session) => {
@@ -87,8 +169,10 @@ const getAppStorage = async function (webId) {
         const me = store.sym(webId);
         const profile = me.doc();
         const fetcher = new $rdf.Fetcher(store);
+        // Fetch the profile document
         fetcher.load(profile)
             .then((res) => {
+                // The location of the base storage must be mentioned in the profile document
                 let location = store.any(me, PIM('storage'), null, null);
                 resolve(location.value);
             })
@@ -107,18 +191,16 @@ const login = async function () {
     return session;
 }
 
-// Simple sleep function
-const sleep = function (ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
-}
-
-getFileList()
-    .then(res => {
-        console.log(`File list: ${res}`);
-        console.log(`Fetching file ${res[0]}`);
-        getFile(res[0]).then((file) => {
-            console.log(file.length)
-        }).catch(err => console.log(err));
-
-    })
-    .catch(err => console.log(err));
+// addFileToList("myfirstfile.ttl", "https://flordigipolis.inrupt.net/private/iot/urn%3Adev%3Amac%3Ab4e62dfffe703f4d_light")
+//     .then((res) => {
+//         console.log(res);
+//         getFileList()
+//             .then((res) => {
+//                 console.log(res);
+//                 // removeFileFromList("https://flordigipolis.inrupt.net/private/iot/urn%3Adev%3Amac%3Ab4e62dfffe703f4d_light")
+//                 //     .then((res) => console.log(res))
+//                 //     .catch((err) => console.error(err));
+//             })
+//             .catch(err => console.error(err));
+//     })
+//     .catch((err) => console.error(err));

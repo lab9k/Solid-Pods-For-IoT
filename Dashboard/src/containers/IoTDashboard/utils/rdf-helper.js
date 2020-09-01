@@ -1,12 +1,37 @@
 import SolidAuth from 'solid-auth-client';
 import { graph, Fetcher, parse, Namespace } from 'rdflib';
+import auth from 'solid-auth-client';
+import FC from 'solid-file-client';
 
 // Introducing our namespaces (Used for querying the data!)
 var SOSA = Namespace("http://www.w3.org/ns/sosa/");
 var SAREF = Namespace("https://w3id.org/saref#");
 var OM = Namespace("http://www.ontology-of-units-of-measure.org/resource/om-2/");
-var RDF = Namespace("http://www.w3.org/1999/02/22-rdf-syntax-ns#");                         // Used mainly for RDF('type')
-//var XSD = Namespace("http://www.w3.org/2001/XMLSchema#");                                   // Used for its units
+var RDF = Namespace("http://www.w3.org/1999/02/22-rdf-syntax-ns#");
+const PIM = Namespace('http://www.w3.org/ns/pim/space#');
+
+// Function that returns a list of files available in the subfolder of choice
+export async function getFiles(subfolder) {
+    var fc = new FC(auth);
+    return new Promise((resolve, reject) => {
+        SolidAuth.trackSession((session) => {
+            if (!!session) {
+                // Get base storage location
+                getAppStorage(session.webId).then((location) => {
+                    // Add subfolder path and fetch
+                    var url = `${location}${subfolder}`;
+                    fc.readFolder(url).then((res) => {
+                        // Return file list
+                        var files = res.files.map((file) => file.url);
+                        resolve(files);
+                    }).catch((err) => reject(err));
+                }).catch(err => reject(err));
+            } else {
+                reject('Not logged in?!');
+            }
+        });
+    });
+}
 
 // Function which creates store, fetches the database and saves it to the store
 export function retrieveStore(url) {
@@ -39,9 +64,10 @@ export function retrieveStore(url) {
 }
 
 export function getSensor(store) {
+    // Check if any triples match either a sosa or saref sensor
     var sensor_sosa = store.any(null, RDF('type'), SOSA('Sensor'), null);
     var sensor_saref = store.any(null, RDF('type'), SAREF('Device'), null);
-
+    // Return the sensor that's found as well as its type
     var sensor = !!(sensor_sosa) ? sensor_sosa : sensor_saref;
     var type = !!(sensor_sosa) ? 'sosa' : (!!(sensor_saref) ? 'saref' : 'none');
     return { sensor, type };
@@ -91,6 +117,26 @@ export function getData(measurements, type, store) {
 }
 
 
+// Function to figure out the storage base
+async function getAppStorage (webId) {
+    return new Promise((resolve, reject) => {
+        const store = graph();
+        const me = store.sym(webId);
+        const profile = me.doc();
+        const fetcher = new Fetcher(store);
+        // Fetch the profile document
+        fetcher.load(profile)
+            .then((res) => {
+                // The location of the base storage must be mentioned in the profile document
+                let location = store.any(me, PIM('storage'), null, null);
+                resolve(location.value);
+            })
+            .catch((err) => {
+                reject(err);
+            })
+    });
+}
+
 function sortByDate(sensorData) {
     // Sort list of data by timestamp if they are available.
     if (sensorData[0].timestamp !== undefined) {
@@ -98,5 +144,4 @@ function sortByDate(sensorData) {
     } else {
         return sensorData;
     }
-
 }

@@ -13,7 +13,6 @@ export class Graph extends React.Component {
         name = name[name.length-1];
         var unit = this.props.data[0].unit;
         unit = (!!unit) ? unit.split('/')[unit.split('/').length-1] : undefined;
-        console.log(unit);
         return {
             tooltip: {
                 trigger: 'axis',

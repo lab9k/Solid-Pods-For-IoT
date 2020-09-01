@@ -86,7 +86,7 @@ export const removeFileFromList = async function (address) {
                 var removals = [$rdf.st(addressNode, RDF('type'), DCTYPE('Dataset'), accessdoc), $rdf.st(store.sym(address), DCTERMS('title'), title, accessdoc)];
                 updater.update(removals, null, (uri, ok, msg) => {
                     if (!ok) {
-                        reject(msg);
+                        reject(msg.split('\n')[0]);
                     } else {
                         resolve(`File ${title} was removed.`);
                     }
@@ -104,7 +104,7 @@ export const getFileList = async function () {
             var fetcher = new $rdf.Fetcher(store);
             fetcher.nowOrWhenFetched(location, (ok, msg, res) => {
                 if (!ok) {
-                    reject(msg);
+                    reject(msg.split('\n')[0]);
                 } else {
                     const store = $rdf.graph();
                     $rdf.parse(res.responseText, store, location, 'text/turtle');
@@ -128,7 +128,7 @@ export const getFile = async function (title) {
             var fetcher = new $rdf.Fetcher(store);
             fetcher.nowOrWhenFetched(location, (ok, msg, res) => {
                 if (!ok) {
-                    reject(msg);
+                    reject(msg.split('\n')[0]);
                 } else {
                     $rdf.parse(res.responseText, store, location, 'text/turtle');
                     var file = store.any(null, DCTERMS('title'), title, null);
@@ -136,7 +136,7 @@ export const getFile = async function (title) {
                     // Fetch the file
                     fetcher.nowOrWhenFetched(file, (ok, msg, res) => {
                         if (!ok) {
-                            reject(msg);
+                            reject(msg.split('\n')[0]);
                         } else {
                             var content = res.responseText;
                             resolve(content);
@@ -191,16 +191,13 @@ const login = async function () {
     return session;
 }
 
-// addFileToList("myfirstfile.ttl", "https://flordigipolis.inrupt.net/private/iot/urn%3Adev%3Amac%3Ab4e62dfffe703f4d_light")
-//     .then((res) => {
-//         console.log(res);
-//         getFileList()
-//             .then((res) => {
-//                 console.log(res);
-//                 // removeFileFromList("https://flordigipolis.inrupt.net/private/iot/urn%3Adev%3Amac%3Ab4e62dfffe703f4d_light")
-//                 //     .then((res) => console.log(res))
-//                 //     .catch((err) => console.error(err));
-//             })
-//             .catch(err => console.error(err));
-//     })
-//     .catch((err) => console.error(err));
+// At the first moment of running, the access list should be created if it doesn't exist
+console.log('Logging in and getting access list location...');
+getLocation().then((location) => {
+    console.log(`Creating access list at ${location} if it doesn't exist yet...`);
+    var store = $rdf.graph();
+    var fetcher = new $rdf.Fetcher(store);
+    fetcher.createIfNotExists($rdf.sym(location), 'text/turtle').then((res) => {
+        console.log(`Document at ${location} found or created.`);
+    }).catch(err => console.error(console.error(err))); 
+}).catch(err => console.error(err));

@@ -54,6 +54,7 @@ router.get('/:filename', async (req, res) => {
                         message: 'File not available'
                     }
                 });
+                break;
             default:
                 res.status(500).json({
                     error: {
@@ -61,6 +62,7 @@ router.get('/:filename', async (req, res) => {
                         message: 'Process failed internally'
                     }
                 });
+                break;
         }
         console.log(`Error fetching file (${filename}): ${err}`);
     }
@@ -75,7 +77,7 @@ router.put('/:filename', async (req, res) => {
             value: message
         });
     } catch (err) {
-        switch(err.split('\n')[0]) {
+        switch(err) {
             case 'Could not interpret address as URI':
                 res.status(400).json({
                     error: {
@@ -86,7 +88,7 @@ router.put('/:filename', async (req, res) => {
                 break;
             case 'File already present':
                 // Not an actual error
-                res.status(201).json({
+                res.status(200).json({
                     value: err
                 });
                 break;
@@ -99,7 +101,7 @@ router.put('/:filename', async (req, res) => {
                 });
                 break;
         }
-        console.log(err.split('\n')[0]);
+        console.log(err);
     }
 });
 
@@ -111,7 +113,7 @@ router.delete('/:filename', async (req, res) => {
             value: message
         });
     } catch (err) {
-        switch(err.split('\n')[0]) {
+        switch(err) {
             case 'Could not interpret address as URI':
                 res.status(400).json({
                     error: {
@@ -136,7 +138,7 @@ router.delete('/:filename', async (req, res) => {
                     }
                 });
         }
-        console.log(err.split('\n')[0]);
+        console.log(err);
     }
 });
 

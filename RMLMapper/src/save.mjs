@@ -18,14 +18,10 @@ var login_called = false;
 const iot_store = $rdf.graph();
 const iot_fetcher = new $rdf.Fetcher(iot_store);
 const iot_updater = new $rdf.UpdateManager(iot_store);
-var message_amount = 0;
 var webId;
 
 // RDF Namespaces
-const SPACE = new $rdf.Namespace('http://www.w3.org/ns/pim/space#');
-const SOLID = new $rdf.Namespace('http://www.w3.org/ns/solid/terms#');
-const RDF = new $rdf.Namespace('http://www.w3.org/1999/02/22-rdf-syntax-ns#');
-const SCHEMA = new $rdf.Namespace('http://schema.org/');
+const PIM = $rdf.Namespace('http://www.w3.org/ns/pim/space#');
 const resources = {};
 
 // Save rdf data to the configured Solid Pod
@@ -51,8 +47,9 @@ export const save = async function (message) {
 
     // Check if a resource is not yet present
     if (!resources[message.name]) {
+        var base = await getAppStorage(webId)
         // If no resource yet exists, create one.
-        var location = `https://${session.webId.split('/')[2]}/${LOCATION}${message.name}`;
+        var location = `${base}${LOCATION}${message.name}.ttl`;
         var store = new $rdf.Formula;
         var updated = Date.now();
         var messages = 0;
@@ -105,6 +102,26 @@ export const save = async function (message) {
         // Reset the message count
         resource.messages = 0;
     }
+}
+
+// Function to figure out the storage base
+const getAppStorage = async function (webId) {
+    return new Promise((resolve, reject) => {
+        const store = $rdf.graph();
+        const me = store.sym(webId);
+        const profile = me.doc();
+        const fetcher = new $rdf.Fetcher(store);
+        // Fetch the profile document
+        fetcher.load(profile)
+            .then((res) => {
+                // The location of the base storage must be mentioned in the profile document
+                let location = store.any(me, PIM('storage'), null, null);
+                resolve(location.value);
+            })
+            .catch((err) => {
+                reject(err);
+            })
+    });
 }
 
 // Log in to the configured Solid Pod

@@ -5,17 +5,18 @@
  * Version: 1.0
 *****************************************/
 
+// Importing required libraries
+import dotenv from 'dotenv';
+dotenv.config();
+
 // Program constants
 export const DEBUG = true;
 export const SHOW_DATA = false;
 
 // MQTT constants
-export const MQTT_SERVER = 'solid.pool42.io';
-export const MQTT_TOPIC = 'solid_iot_one';
-
-// MQTT constants alt
-// export const MQTT_SERVER = 'broker.hivemq.com';
-// export const MQTT_TOPIC = 'solid_iot_two';
+export const MQTT_SERVER = 'broker.hivemq.com';
+// export const MQTT_TOPIC = 'solid_iot_one';
+export const MQTT_TOPIC = 'solid_iot_two';
 
 // Mapping constants (which SenML unit maps to which om-2 unit and quantity) (SSN/SAREF)
 export const RML_FILE = './src/rml/rml_ssn.ttl';
@@ -147,13 +148,12 @@ export const PROPERTIES_OM = {
     "S/m": "ElectricalConductivity"
 }
 
-// Solid Pod constants (Credentials saved to a separate file to avoid pushing them to github)
-import {username, password} from './credentials.mjs';
-// export const IDENTITY_PROVIDER = 'https://inrupt.net';
+// Solid Pod constants (Credentials saved in a dotenv file to avoid pushing them to github)
+export const IDENTITY_PROVIDER = 'https://inrupt.net';
 // export const IDENTITY_PROVIDER = 'https://solid.community';
-export const IDENTITY_PROVIDER = 'https://solidweb.org';
+// export const IDENTITY_PROVIDER = 'https://solidweb.org';
 // export const IDENTITY_PROVIDER = 'https://pods.pool42.io:8443';
-export const USERNAME = username;
-export const PASSWORD = password;
+export const USERNAME = process.env.SOLIDUSERNAME;
+export const PASSWORD = process.env.SOLIDPASSWORD;
 export const LOCATION = 'private/iot/'
 export const UPDATER_DELAY_MS = 30e3;

@@ -1,0 +1,721 @@
+[ {
+  "@graph" : [ {
+    "@id" : "http://localhost:8080/resources/pipelines/1598357371960",
+    "@type" : [ "http://linkedpipes.com/ontology/Pipeline" ],
+    "http://etl.linkedpipes.com/ontology/version" : [ {
+      "@type" : "http://www.w3.org/2001/XMLSchema#int",
+      "@value" : "2"
+    } ],
+    "http://linkedpipes.com/ontology/profile" : [ {
+      "@id" : "http://localhost:8080/resources/pipelines/1598357371960/profile/default"
+    } ],
+    "http://www.w3.org/2004/02/skos/core#prefLabel" : [ {
+      "@value" : "Solid Datapod Combiner"
+    } ]
+  }, {
+    "@id" : "http://localhost:8080/resources/pipelines/1598357371960/component/07d4-8df1",
+    "@type" : [ "http://linkedpipes.com/ontology/Component" ],
+    "http://linkedpipes.com/ontology/configurationGraph" : [ {
+      "@id" : "http://localhost:8080/resources/pipelines/1598357371960/component/07d4-8df1/configuration"
+    } ],
+    "http://linkedpipes.com/ontology/template" : [ {
+      "@id" : "http://etl.linkedpipes.com/resources/components/t-sparqlConstruct/0.0.0"
+    } ],
+    "http://linkedpipes.com/ontology/x" : [ {
+      "@type" : "http://www.w3.org/2001/XMLSchema#integer",
+      "@value" : "574"
+    } ],
+    "http://linkedpipes.com/ontology/y" : [ {
+      "@type" : "http://www.w3.org/2001/XMLSchema#integer",
+      "@value" : "-85"
+    } ],
+    "http://purl.org/dc/terms/description" : [ {
+      "@value" : "MAP TO CONFIG"
+    } ],
+    "http://www.w3.org/2004/02/skos/core#prefLabel" : [ {
+      "@value" : "SPARQL"
+    } ]
+  }, {
+    "@id" : "http://localhost:8080/resources/pipelines/1598357371960/component/21a5-ac97",
+    "@type" : [ "http://linkedpipes.com/ontology/Component" ],
+    "http://linkedpipes.com/ontology/configurationGraph" : [ {
+      "@id" : "http://localhost:8080/resources/pipelines/1598357371960/component/21a5-ac97/configuration"
+    } ],
+    "http://linkedpipes.com/ontology/template" : [ {
+      "@id" : "http://etl.linkedpipes.com/resources/components/l-graphStoreProtocol/0.0.0"
+    } ],
+    "http://linkedpipes.com/ontology/x" : [ {
+      "@type" : "http://www.w3.org/2001/XMLSchema#integer",
+      "@value" : "735"
+    } ],
+    "http://linkedpipes.com/ontology/y" : [ {
+      "@type" : "http://www.w3.org/2001/XMLSchema#integer",
+      "@value" : "154"
+    } ],
+    "http://www.w3.org/2004/02/skos/core#prefLabel" : [ {
+      "@value" : "SAVE IN VIRTUOSO"
+    } ]
+  }, {
+    "@id" : "http://localhost:8080/resources/pipelines/1598357371960/component/2340-b857",
+    "@type" : [ "http://linkedpipes.com/ontology/Component" ],
+    "http://linkedpipes.com/ontology/configurationGraph" : [ {
+      "@id" : "http://localhost:8080/resources/pipelines/1598357371960/component/2340-b857/configuration"
+    } ],
+    "http://linkedpipes.com/ontology/template" : [ {
+      "@id" : "http://etl.linkedpipes.com/resources/components/t-jsonToJsonLd/0.0.0"
+    } ],
+    "http://linkedpipes.com/ontology/x" : [ {
+      "@type" : "http://www.w3.org/2001/XMLSchema#integer",
+      "@value" : "124"
+    } ],
+    "http://linkedpipes.com/ontology/y" : [ {
+      "@type" : "http://www.w3.org/2001/XMLSchema#integer",
+      "@value" : "-61"
+    } ],
+    "http://www.w3.org/2004/02/skos/core#prefLabel" : [ {
+      "@value" : "JSON to JSON-LD"
+    } ]
+  }, {
+    "@id" : "http://localhost:8080/resources/pipelines/1598357371960/component/25a5-bf26",
+    "@type" : [ "http://linkedpipes.com/ontology/Component" ],
+    "http://linkedpipes.com/ontology/configurationGraph" : [ {
+      "@id" : "http://localhost:8080/resources/pipelines/1598357371960/component/25a5-bf26/configuration"
+    } ],
+    "http://linkedpipes.com/ontology/template" : [ {
+      "@id" : "http://etl.linkedpipes.com/resources/components/e-httpGetFile/0.0.0"
+    } ],
+    "http://linkedpipes.com/ontology/x" : [ {
+      "@type" : "http://www.w3.org/2001/XMLSchema#integer",
+      "@value" : "-51"
+    } ],
+    "http://linkedpipes.com/ontology/y" : [ {
+      "@type" : "http://www.w3.org/2001/XMLSchema#integer",
+      "@value" : "15"
+    } ],
+    "http://purl.org/dc/terms/description" : [ {
+      "@value" : "FILE LIST"
+    } ],
+    "http://www.w3.org/2004/02/skos/core#prefLabel" : [ {
+      "@value" : "HTTP GET"
+    } ]
+  }, {
+    "@id" : "http://localhost:8080/resources/pipelines/1598357371960/component/4b66-be6a",
+    "@type" : [ "http://linkedpipes.com/ontology/Component" ],
+    "http://linkedpipes.com/ontology/configurationGraph" : [ {
+      "@id" : "http://localhost:8080/resources/pipelines/1598357371960/component/4b66-be6a/configuration"
+    } ],
+    "http://linkedpipes.com/ontology/template" : [ {
+      "@id" : "http://etl.linkedpipes.com/resources/components/t-filesToRdf/0.0.0"
+    } ],
+    "http://linkedpipes.com/ontology/x" : [ {
+      "@type" : "http://www.w3.org/2001/XMLSchema#integer",
+      "@value" : "48"
+    } ],
+    "http://linkedpipes.com/ontology/y" : [ {
+      "@type" : "http://www.w3.org/2001/XMLSchema#integer",
+      "@value" : "171"
+    } ],
+    "http://www.w3.org/2004/02/skos/core#prefLabel" : [ {
+      "@value" : "PARSE TO RDF"
+    } ]
+  }, {
+    "@id" : "http://localhost:8080/resources/pipelines/1598357371960/component/868f-adf7",
+    "@type" : [ "http://linkedpipes.com/ontology/Component" ],
+    "http://linkedpipes.com/ontology/configurationGraph" : [ {
+      "@id" : "http://localhost:8080/resources/pipelines/1598357371960/component/868f-adf7/configuration"
+    } ],
+    "http://linkedpipes.com/ontology/template" : [ {
+      "@id" : "http://etl.linkedpipes.com/resources/components/t-rdfToFile/0.0.0"
+    } ],
+    "http://linkedpipes.com/ontology/x" : [ {
+      "@type" : "http://www.w3.org/2001/XMLSchema#integer",
+      "@value" : "569"
+    } ],
+    "http://linkedpipes.com/ontology/y" : [ {
+      "@type" : "http://www.w3.org/2001/XMLSchema#integer",
+      "@value" : "225"
+    } ],
+    "http://purl.org/dc/terms/description" : [ {
+      "@value" : "TURTLE"
+    } ],
+    "http://www.w3.org/2004/02/skos/core#prefLabel" : [ {
+      "@value" : "RDF TO FILE"
+    } ]
+  }, {
+    "@id" : "http://localhost:8080/resources/pipelines/1598357371960/component/b8ea-b9cd",
+    "@type" : [ "http://linkedpipes.com/ontology/Component" ],
+    "http://linkedpipes.com/ontology/configurationGraph" : [ {
+      "@id" : "http://localhost:8080/resources/pipelines/1598357371960/component/b8ea-b9cd/configuration"
+    } ],
+    "http://linkedpipes.com/ontology/template" : [ {
+      "@id" : "http://etl.linkedpipes.com/resources/components/t-graphMerger/0.0.0"
+    } ],
+    "http://linkedpipes.com/ontology/x" : [ {
+      "@type" : "http://www.w3.org/2001/XMLSchema#integer",
+      "@value" : "217"
+    } ],
+    "http://linkedpipes.com/ontology/y" : [ {
+      "@type" : "http://www.w3.org/2001/XMLSchema#integer",
+      "@value" : "246"
+    } ],
+    "http://www.w3.org/2004/02/skos/core#prefLabel" : [ {
+      "@value" : "MERGE GRAPHS"
+    } ]
+  }, {
+    "@id" : "http://localhost:8080/resources/pipelines/1598357371960/component/cd54-8f2b",
+    "@type" : [ "http://linkedpipes.com/ontology/Component" ],
+    "http://linkedpipes.com/ontology/configurationGraph" : [ {
+      "@id" : "http://localhost:8080/resources/pipelines/1598357371960/component/cd54-8f2b/configuration"
+    } ],
+    "http://linkedpipes.com/ontology/template" : [ {
+      "@id" : "http://etl.linkedpipes.com/resources/components/t-sparqlConstruct/0.0.0"
+    } ],
+    "http://linkedpipes.com/ontology/x" : [ {
+      "@type" : "http://www.w3.org/2001/XMLSchema#integer",
+      "@value" : "399"
+    } ],
+    "http://linkedpipes.com/ontology/y" : [ {
+      "@type" : "http://www.w3.org/2001/XMLSchema#integer",
+      "@value" : "163"
+    } ],
+    "http://purl.org/dc/terms/description" : [ {
+      "@value" : "SAREF -> SSN"
+    } ],
+    "http://www.w3.org/2004/02/skos/core#prefLabel" : [ {
+      "@value" : "SPARQL"
+    } ]
+  }, {
+    "@id" : "http://localhost:8080/resources/pipelines/1598357371960/component/e6bd-87d0",
+    "@type" : [ "http://linkedpipes.com/ontology/Component" ],
+    "http://linkedpipes.com/ontology/configurationGraph" : [ {
+      "@id" : "http://localhost:8080/resources/pipelines/1598357371960/component/e6bd-87d0/configuration"
+    } ],
+    "http://linkedpipes.com/ontology/template" : [ {
+      "@id" : "http://etl.linkedpipes.com/resources/components/e-httpGetFiles/0.0.0"
+    } ],
+    "http://linkedpipes.com/ontology/x" : [ {
+      "@type" : "http://www.w3.org/2001/XMLSchema#integer",
+      "@value" : "772"
+    } ],
+    "http://linkedpipes.com/ontology/y" : [ {
+      "@type" : "http://www.w3.org/2001/XMLSchema#integer",
+      "@value" : "-27"
+    } ],
+    "http://purl.org/dc/terms/description" : [ {
+      "@value" : "FILES FROM LIST"
+    } ],
+    "http://www.w3.org/2004/02/skos/core#prefLabel" : [ {
+      "@value" : "HTTP GET"
+    } ]
+  }, {
+    "@id" : "http://localhost:8080/resources/pipelines/1598357371960/component/eb4e-ae77",
+    "@type" : [ "http://linkedpipes.com/ontology/Component" ],
+    "http://linkedpipes.com/ontology/configurationGraph" : [ {
+      "@id" : "http://localhost:8080/resources/pipelines/1598357371960/component/eb4e-ae77/configuration"
+    } ],
+    "http://linkedpipes.com/ontology/template" : [ {
+      "@id" : "http://etl.linkedpipes.com/resources/components/t-filesToRdfGraph/0.0.0"
+    } ],
+    "http://linkedpipes.com/ontology/x" : [ {
+      "@type" : "http://www.w3.org/2001/XMLSchema#integer",
+      "@value" : "341"
+    } ],
+    "http://linkedpipes.com/ontology/y" : [ {
+      "@type" : "http://www.w3.org/2001/XMLSchema#integer",
+      "@value" : "-14"
+    } ],
+    "http://www.w3.org/2004/02/skos/core#prefLabel" : [ {
+      "@value" : "CONVERT TO GRAPH"
+    } ]
+  }, {
+    "@id" : "http://localhost:8080/resources/pipelines/1598357371960/connection/036c-8a25",
+    "@type" : [ "http://linkedpipes.com/ontology/Connection" ],
+    "http://linkedpipes.com/ontology/sourceBinding" : [ {
+      "@value" : "OutputRdf"
+    } ],
+    "http://linkedpipes.com/ontology/sourceComponent" : [ {
+      "@id" : "http://localhost:8080/resources/pipelines/1598357371960/component/cd54-8f2b"
+    } ],
+    "http://linkedpipes.com/ontology/targetBinding" : [ {
+      "@value" : "InputRdf"
+    } ],
+    "http://linkedpipes.com/ontology/targetComponent" : [ {
+      "@id" : "http://localhost:8080/resources/pipelines/1598357371960/component/868f-adf7"
+    } ]
+  }, {
+    "@id" : "http://localhost:8080/resources/pipelines/1598357371960/connection/3a2f-9347",
+    "@type" : [ "http://linkedpipes.com/ontology/Connection" ],
+    "http://linkedpipes.com/ontology/sourceBinding" : [ {
+      "@value" : "FilesOutput"
+    } ],
+    "http://linkedpipes.com/ontology/sourceComponent" : [ {
+      "@id" : "http://localhost:8080/resources/pipelines/1598357371960/component/25a5-bf26"
+    } ],
+    "http://linkedpipes.com/ontology/targetBinding" : [ {
+      "@value" : "InputFiles"
+    } ],
+    "http://linkedpipes.com/ontology/targetComponent" : [ {
+      "@id" : "http://localhost:8080/resources/pipelines/1598357371960/component/2340-b857"
+    } ]
+  }, {
+    "@id" : "http://localhost:8080/resources/pipelines/1598357371960/connection/481b-8718",
+    "@type" : [ "http://linkedpipes.com/ontology/Connection" ],
+    "http://linkedpipes.com/ontology/sourceBinding" : [ {
+      "@value" : "OutputRdf"
+    } ],
+    "http://linkedpipes.com/ontology/sourceComponent" : [ {
+      "@id" : "http://localhost:8080/resources/pipelines/1598357371960/component/eb4e-ae77"
+    } ],
+    "http://linkedpipes.com/ontology/targetBinding" : [ {
+      "@value" : "InputRdf"
+    } ],
+    "http://linkedpipes.com/ontology/targetComponent" : [ {
+      "@id" : "http://localhost:8080/resources/pipelines/1598357371960/component/07d4-8df1"
+    } ]
+  }, {
+    "@id" : "http://localhost:8080/resources/pipelines/1598357371960/connection/9d9b-bea5",
+    "@type" : [ "http://linkedpipes.com/ontology/Connection" ],
+    "http://linkedpipes.com/ontology/sourceBinding" : [ {
+      "@value" : "FilesOutput"
+    } ],
+    "http://linkedpipes.com/ontology/sourceComponent" : [ {
+      "@id" : "http://localhost:8080/resources/pipelines/1598357371960/component/e6bd-87d0"
+    } ],
+    "http://linkedpipes.com/ontology/targetBinding" : [ {
+      "@value" : "InputFiles"
+    } ],
+    "http://linkedpipes.com/ontology/targetComponent" : [ {
+      "@id" : "http://localhost:8080/resources/pipelines/1598357371960/component/4b66-be6a"
+    } ],
+    "http://linkedpipes.com/ontology/vertex" : [ {
+      "@id" : "http://localhost:8080/resources/pipelines/1598357371960/vertex/ec25-9d40"
+    }, {
+      "@id" : "http://localhost:8080/resources/pipelines/1598357371960/vertex/6d9a-a8ab"
+    } ]
+  }, {
+    "@id" : "http://localhost:8080/resources/pipelines/1598357371960/connection/cfe5-9b1b",
+    "@type" : [ "http://linkedpipes.com/ontology/Connection" ],
+    "http://linkedpipes.com/ontology/sourceBinding" : [ {
+      "@value" : "OutputRdf"
+    } ],
+    "http://linkedpipes.com/ontology/sourceComponent" : [ {
+      "@id" : "http://localhost:8080/resources/pipelines/1598357371960/component/4b66-be6a"
+    } ],
+    "http://linkedpipes.com/ontology/targetBinding" : [ {
+      "@value" : "InputRdf"
+    } ],
+    "http://linkedpipes.com/ontology/targetComponent" : [ {
+      "@id" : "http://localhost:8080/resources/pipelines/1598357371960/component/b8ea-b9cd"
+    } ]
+  }, {
+    "@id" : "http://localhost:8080/resources/pipelines/1598357371960/connection/d2c0-9308",
+    "@type" : [ "http://linkedpipes.com/ontology/Connection" ],
+    "http://linkedpipes.com/ontology/sourceBinding" : [ {
+      "@value" : "OutputFile"
+    } ],
+    "http://linkedpipes.com/ontology/sourceComponent" : [ {
+      "@id" : "http://localhost:8080/resources/pipelines/1598357371960/component/868f-adf7"
+    } ],
+    "http://linkedpipes.com/ontology/targetBinding" : [ {
+      "@value" : "InputFiles"
+    } ],
+    "http://linkedpipes.com/ontology/targetComponent" : [ {
+      "@id" : "http://localhost:8080/resources/pipelines/1598357371960/component/21a5-ac97"
+    } ]
+  }, {
+    "@id" : "http://localhost:8080/resources/pipelines/1598357371960/connection/d873-8206",
+    "@type" : [ "http://linkedpipes.com/ontology/Connection" ],
+    "http://linkedpipes.com/ontology/sourceBinding" : [ {
+      "@value" : "OutputRdf"
+    } ],
+    "http://linkedpipes.com/ontology/sourceComponent" : [ {
+      "@id" : "http://localhost:8080/resources/pipelines/1598357371960/component/b8ea-b9cd"
+    } ],
+    "http://linkedpipes.com/ontology/targetBinding" : [ {
+      "@value" : "InputRdf"
+    } ],
+    "http://linkedpipes.com/ontology/targetComponent" : [ {
+      "@id" : "http://localhost:8080/resources/pipelines/1598357371960/component/cd54-8f2b"
+    } ]
+  }, {
+    "@id" : "http://localhost:8080/resources/pipelines/1598357371960/connection/ec84-891b",
+    "@type" : [ "http://linkedpipes.com/ontology/Connection" ],
+    "http://linkedpipes.com/ontology/sourceBinding" : [ {
+      "@value" : "OutputFiles"
+    } ],
+    "http://linkedpipes.com/ontology/sourceComponent" : [ {
+      "@id" : "http://localhost:8080/resources/pipelines/1598357371960/component/2340-b857"
+    } ],
+    "http://linkedpipes.com/ontology/targetBinding" : [ {
+      "@value" : "InputFiles"
+    } ],
+    "http://linkedpipes.com/ontology/targetComponent" : [ {
+      "@id" : "http://localhost:8080/resources/pipelines/1598357371960/component/eb4e-ae77"
+    } ]
+  }, {
+    "@id" : "http://localhost:8080/resources/pipelines/1598357371960/connection/fde2-b11e",
+    "@type" : [ "http://linkedpipes.com/ontology/Connection" ],
+    "http://linkedpipes.com/ontology/sourceBinding" : [ {
+      "@value" : "OutputRdf"
+    } ],
+    "http://linkedpipes.com/ontology/sourceComponent" : [ {
+      "@id" : "http://localhost:8080/resources/pipelines/1598357371960/component/07d4-8df1"
+    } ],
+    "http://linkedpipes.com/ontology/targetBinding" : [ {
+      "@value" : "Configuration"
+    } ],
+    "http://linkedpipes.com/ontology/targetComponent" : [ {
+      "@id" : "http://localhost:8080/resources/pipelines/1598357371960/component/e6bd-87d0"
+    } ]
+  }, {
+    "@id" : "http://localhost:8080/resources/pipelines/1598357371960/profile/default",
+    "@type" : [ "http://linkedpipes.com/ontology/ExecutionProfile" ],
+    "http://linkedpipes.com/ontology/rdfRepositoryPolicy" : [ {
+      "@id" : "http://linkedpipes.com/ontology/repository/SingleRepository"
+    } ],
+    "http://linkedpipes.com/ontology/rdfRepositoryType" : [ {
+      "@id" : "http://linkedpipes.com/ontology/repository/NativeStore"
+    } ]
+  }, {
+    "@id" : "http://localhost:8080/resources/pipelines/1598357371960/vertex/6d9a-a8ab",
+    "@type" : [ "http://linkedpipes.com/ontology/Vertex" ],
+    "http://linkedpipes.com/ontology/order" : [ {
+      "@type" : "http://www.w3.org/2001/XMLSchema#integer",
+      "@value" : "2"
+    } ],
+    "http://linkedpipes.com/ontology/x" : [ {
+      "@type" : "http://www.w3.org/2001/XMLSchema#integer",
+      "@value" : "49"
+    } ],
+    "http://linkedpipes.com/ontology/y" : [ {
+      "@type" : "http://www.w3.org/2001/XMLSchema#integer",
+      "@value" : "103"
+    } ]
+  }, {
+    "@id" : "http://localhost:8080/resources/pipelines/1598357371960/vertex/ec25-9d40",
+    "@type" : [ "http://linkedpipes.com/ontology/Vertex" ],
+    "http://linkedpipes.com/ontology/order" : [ {
+      "@type" : "http://www.w3.org/2001/XMLSchema#integer",
+      "@value" : "1"
+    } ],
+    "http://linkedpipes.com/ontology/x" : [ {
+      "@type" : "http://www.w3.org/2001/XMLSchema#integer",
+      "@value" : "970"
+    } ],
+    "http://linkedpipes.com/ontology/y" : [ {
+      "@type" : "http://www.w3.org/2001/XMLSchema#integer",
+      "@value" : "104"
+    } ]
+  } ],
+  "@id" : "http://localhost:8080/resources/pipelines/1598357371960"
+}, {
+  "@graph" : [ {
+    "@id" : "http://localhost:8080/resources/pipelines/1598357371960/component/07d4-8df1/configuration",
+    "@type" : [ "http://plugins.linkedpipes.com/ontology/t-sparqlConstruct#Configuration" ],
+    "http://plugins.linkedpipes.com/ontology/t-sparqlConstruct#query" : [ {
+      "@value" : "prefix localhost: <http://localhost/ontology/>\nprefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\nprefix httpList: <http://plugins.linkedpipes.com/ontology/e-httpGetFiles#>\nprefix config: <http://localhost/resource/configuration>\nCONSTRUCT {\n    config: rdf:type httpList:Configuration .\n    config: httpList:reference ?ref .\n    ?ref rdf:type httpList:Reference .\n  \t?ref httpList:fileName $name .\n    ?ref httpList:fileUri $uri . \n    ?ref httpList:header $header .\n    ?header rdf:type httpList:Header .\n    ?header httpList:key \"Accept\" .\n    ?header httpList:value \"text/turtle\" .\n}\nWHERE {\n    ?s localhost:name ?name .\n    BIND(iri(concat('http://localhost/resource/ref/', $name)) AS ?ref)\n    BIND(iri(concat('http://localhost/resource/ref/', $name, '/header')) AS ?header)\n    BIND(iri(concat('http://solid.pool42.io:8030/v1/solidfiles/', $name)) AS ?uri)\n}"
+    } ],
+    "http://plugins.linkedpipes.com/ontology/t-sparqlConstruct#queryControl" : [ {
+      "@id" : "http://plugins.linkedpipes.com/resource/configuration/None"
+    } ]
+  } ],
+  "@id" : "http://localhost:8080/resources/pipelines/1598357371960/component/07d4-8df1/configuration"
+}, {
+  "@graph" : [ {
+    "@id" : "http://localhost:8080/resources/pipelines/1598357371960/component/21a5-ac97/configuration",
+    "@type" : [ "http://plugins.linkedpipes.com/ontology/l-graphStoreProtocol#Configuration" ],
+    "http://plugins.linkedpipes.com/ontology/l-graphStoreProtocol#authentification" : [ {
+      "@type" : "http://www.w3.org/2001/XMLSchema#boolean",
+      "@value" : "true"
+    } ],
+    "http://plugins.linkedpipes.com/ontology/l-graphStoreProtocol#authentificationControl" : [ {
+      "@id" : "http://plugins.linkedpipes.com/resource/configuration/None"
+    } ],
+    "http://plugins.linkedpipes.com/ontology/l-graphStoreProtocol#checkSize" : [ {
+      "@type" : "http://www.w3.org/2001/XMLSchema#boolean",
+      "@value" : "false"
+    } ],
+    "http://plugins.linkedpipes.com/ontology/l-graphStoreProtocol#checkSizeControl" : [ {
+      "@id" : "http://plugins.linkedpipes.com/resource/configuration/None"
+    } ],
+    "http://plugins.linkedpipes.com/ontology/l-graphStoreProtocol#endpoint" : [ {
+      "@value" : "http://db:8890/sparql-graph-crud-auth"
+    } ],
+    "http://plugins.linkedpipes.com/ontology/l-graphStoreProtocol#endpointControl" : [ {
+      "@id" : "http://plugins.linkedpipes.com/resource/configuration/None"
+    } ],
+    "http://plugins.linkedpipes.com/ontology/l-graphStoreProtocol#endpointSelectControl" : [ {
+      "@id" : "http://plugins.linkedpipes.com/resource/configuration/None"
+    } ],
+    "http://plugins.linkedpipes.com/ontology/l-graphStoreProtocol#graph" : [ {
+      "@value" : "http://example.org/my-graph"
+    } ],
+    "http://plugins.linkedpipes.com/ontology/l-graphStoreProtocol#graphControl" : [ {
+      "@id" : "http://plugins.linkedpipes.com/resource/configuration/None"
+    } ],
+    "http://plugins.linkedpipes.com/ontology/l-graphStoreProtocol#password" : [ {
+      "@value" : "dba"
+    } ],
+    "http://plugins.linkedpipes.com/ontology/l-graphStoreProtocol#passwordControl" : [ {
+      "@id" : "http://plugins.linkedpipes.com/resource/configuration/None"
+    } ],
+    "http://plugins.linkedpipes.com/ontology/l-graphStoreProtocol#replace" : [ {
+      "@type" : "http://www.w3.org/2001/XMLSchema#boolean",
+      "@value" : "false"
+    } ],
+    "http://plugins.linkedpipes.com/ontology/l-graphStoreProtocol#replaceControl" : [ {
+      "@id" : "http://plugins.linkedpipes.com/resource/configuration/None"
+    } ],
+    "http://plugins.linkedpipes.com/ontology/l-graphStoreProtocol#repository" : [ {
+      "@value" : "VIRTUOSO"
+    } ],
+    "http://plugins.linkedpipes.com/ontology/l-graphStoreProtocol#repositoryControl" : [ {
+      "@id" : "http://plugins.linkedpipes.com/resource/configuration/None"
+    } ],
+    "http://plugins.linkedpipes.com/ontology/l-graphStoreProtocol#user" : [ {
+      "@value" : "dba"
+    } ],
+    "http://plugins.linkedpipes.com/ontology/l-graphStoreProtocol#userControl" : [ {
+      "@id" : "http://plugins.linkedpipes.com/resource/configuration/None"
+    } ]
+  } ],
+  "@id" : "http://localhost:8080/resources/pipelines/1598357371960/component/21a5-ac97/configuration"
+}, {
+  "@graph" : [ {
+    "@id" : "http://localhost:8080/resources/pipelines/1598357371960/component/2340-b857/configuration",
+    "@type" : [ "http://plugins.linkedpipes.com/ontology/t-jsonToJsonLd#Configuration" ],
+    "http://plugins.linkedpipes.com/ontology/t-jsonToJsonLd#context" : [ {
+      "@value" : "{\"@vocab\":\"http://localhost/ontology/\"}"
+    } ],
+    "http://plugins.linkedpipes.com/ontology/t-jsonToJsonLd#contextControl" : [ {
+      "@id" : "http://plugins.linkedpipes.com/resource/configuration/None"
+    } ],
+    "http://plugins.linkedpipes.com/ontology/t-jsonToJsonLd#dataPredicate" : [ {
+      "@id" : "http://localhost/ontology/data"
+    } ],
+    "http://plugins.linkedpipes.com/ontology/t-jsonToJsonLd#dataPredicateControl" : [ {
+      "@id" : "http://plugins.linkedpipes.com/resource/configuration/None"
+    } ],
+    "http://plugins.linkedpipes.com/ontology/t-jsonToJsonLd#encoding" : [ {
+      "@value" : "UTF-8"
+    } ],
+    "http://plugins.linkedpipes.com/ontology/t-jsonToJsonLd#encodingControl" : [ {
+      "@id" : "http://plugins.linkedpipes.com/resource/configuration/None"
+    } ],
+    "http://plugins.linkedpipes.com/ontology/t-jsonToJsonLd#filePredicate" : [ {
+      "@id" : "http://localhost/ontology/filePredicate"
+    } ],
+    "http://plugins.linkedpipes.com/ontology/t-jsonToJsonLd#filePredicateControl" : [ {
+      "@id" : "http://plugins.linkedpipes.com/resource/configuration/None"
+    } ],
+    "http://plugins.linkedpipes.com/ontology/t-jsonToJsonLd#fileReference" : [ {
+      "@type" : "http://www.w3.org/2001/XMLSchema#boolean",
+      "@value" : "true"
+    } ],
+    "http://plugins.linkedpipes.com/ontology/t-jsonToJsonLd#fileReferenceControl" : [ {
+      "@id" : "http://plugins.linkedpipes.com/resource/configuration/None"
+    } ],
+    "http://plugins.linkedpipes.com/ontology/t-jsonToJsonLd#type" : [ {
+      "@id" : "http://localhost/ontology/Data"
+    } ],
+    "http://plugins.linkedpipes.com/ontology/t-jsonToJsonLd#typeControl" : [ {
+      "@id" : "http://plugins.linkedpipes.com/resource/configuration/None"
+    } ]
+  } ],
+  "@id" : "http://localhost:8080/resources/pipelines/1598357371960/component/2340-b857/configuration"
+}, {
+  "@graph" : [ {
+    "@id" : "http://localhost:8080/resources/pipelines/1598357371960/component/25a5-bf26/configuration",
+    "@type" : [ "http://plugins.linkedpipes.com/ontology/e-httpGetFile#Configuration" ],
+    "http://plugins.linkedpipes.com/ontology/e-httpGetFile#encodeUrl" : [ {
+      "@type" : "http://www.w3.org/2001/XMLSchema#boolean",
+      "@value" : "false"
+    } ],
+    "http://plugins.linkedpipes.com/ontology/e-httpGetFile#encodeUrlControl" : [ {
+      "@id" : "http://plugins.linkedpipes.com/resource/configuration/None"
+    } ],
+    "http://plugins.linkedpipes.com/ontology/e-httpGetFile#fileName" : [ {
+      "@value" : "FileList.json"
+    } ],
+    "http://plugins.linkedpipes.com/ontology/e-httpGetFile#fileNameControl" : [ {
+      "@id" : "http://plugins.linkedpipes.com/resource/configuration/None"
+    } ],
+    "http://plugins.linkedpipes.com/ontology/e-httpGetFile#fileUri" : [ {
+      "@value" : "http://solid.pool42.io:8030/v1/solidfiles"
+    } ],
+    "http://plugins.linkedpipes.com/ontology/e-httpGetFile#fileUriControl" : [ {
+      "@id" : "http://plugins.linkedpipes.com/resource/configuration/None"
+    } ],
+    "http://plugins.linkedpipes.com/ontology/e-httpGetFile#hardRedirect" : [ {
+      "@type" : "http://www.w3.org/2001/XMLSchema#boolean",
+      "@value" : "false"
+    } ],
+    "http://plugins.linkedpipes.com/ontology/e-httpGetFile#hardRedirectControl" : [ {
+      "@id" : "http://plugins.linkedpipes.com/resource/configuration/None"
+    } ],
+    "http://plugins.linkedpipes.com/ontology/e-httpGetFile#userAgent" : [ {
+      "@value" : ""
+    } ],
+    "http://plugins.linkedpipes.com/ontology/e-httpGetFile#userAgentControl" : [ {
+      "@id" : "http://plugins.linkedpipes.com/resource/configuration/None"
+    } ],
+    "http://plugins.linkedpipes.com/ontology/e-httpGetFile#utf8Redirect" : [ {
+      "@type" : "http://www.w3.org/2001/XMLSchema#boolean",
+      "@value" : "false"
+    } ],
+    "http://plugins.linkedpipes.com/ontology/e-httpGetFile#utf8RedirectControl" : [ {
+      "@id" : "http://plugins.linkedpipes.com/resource/configuration/None"
+    } ]
+  } ],
+  "@id" : "http://localhost:8080/resources/pipelines/1598357371960/component/25a5-bf26/configuration"
+}, {
+  "@graph" : [ {
+    "@id" : "http://localhost:8080/resources/pipelines/1598357371960/component/4b66-be6a/configuration",
+    "@type" : [ "http://plugins.linkedpipes.com/ontology/t-filesToRdf#Configuration" ],
+    "http://plugins.linkedpipes.com/ontology/t-filesToRdf#commitSize" : [ {
+      "@type" : "http://www.w3.org/2001/XMLSchema#integer",
+      "@value" : "10000000"
+    } ],
+    "http://plugins.linkedpipes.com/ontology/t-filesToRdf#commitSizeControl" : [ {
+      "@id" : "http://plugins.linkedpipes.com/resource/configuration/None"
+    } ],
+    "http://plugins.linkedpipes.com/ontology/t-filesToRdf#mimeType" : [ {
+      "@value" : ""
+    } ],
+    "http://plugins.linkedpipes.com/ontology/t-filesToRdf#mimeTypeControl" : [ {
+      "@id" : "http://plugins.linkedpipes.com/resource/configuration/None"
+    } ],
+    "http://plugins.linkedpipes.com/ontology/t-filesToRdf#softFail" : [ {
+      "@type" : "http://www.w3.org/2001/XMLSchema#boolean",
+      "@value" : "false"
+    } ],
+    "http://plugins.linkedpipes.com/ontology/t-filesToRdf#softFailControl" : [ {
+      "@id" : "http://plugins.linkedpipes.com/resource/configuration/None"
+    } ]
+  } ],
+  "@id" : "http://localhost:8080/resources/pipelines/1598357371960/component/4b66-be6a/configuration"
+}, {
+  "@graph" : [ {
+    "@id" : "http://localhost:8080/resources/pipelines/1598357371960/component/868f-adf7/configuration",
+    "@type" : [ "http://plugins.linkedpipes.com/ontology/t-rdfToFile#Configuration" ],
+    "http://plugins.linkedpipes.com/ontology/t-rdfToFile#fileName" : [ {
+      "@value" : "data.ttl"
+    } ],
+    "http://plugins.linkedpipes.com/ontology/t-rdfToFile#fileNameControl" : [ {
+      "@id" : "http://plugins.linkedpipes.com/resource/configuration/None"
+    } ],
+    "http://plugins.linkedpipes.com/ontology/t-rdfToFile#fileType" : [ {
+      "@value" : "text/turtle"
+    } ],
+    "http://plugins.linkedpipes.com/ontology/t-rdfToFile#fileTypeControl" : [ {
+      "@id" : "http://plugins.linkedpipes.com/resource/configuration/None"
+    } ],
+    "http://plugins.linkedpipes.com/ontology/t-rdfToFile#graphUri" : [ {
+      "@id" : "http://localhost/default"
+    } ],
+    "http://plugins.linkedpipes.com/ontology/t-rdfToFile#graphUriControl" : [ {
+      "@id" : "http://plugins.linkedpipes.com/resource/configuration/None"
+    } ]
+  } ],
+  "@id" : "http://localhost:8080/resources/pipelines/1598357371960/component/868f-adf7/configuration"
+}, {
+  "@graph" : [ {
+    "@id" : "http://etl.linkedpipes.com/resources/components/t-graphMerger/0.0.0/new/1",
+    "@type" : [ "http://plugins.linkedpipes.com/ontology/t-graphMerger#Configuration" ]
+  } ],
+  "@id" : "http://localhost:8080/resources/pipelines/1598357371960/component/b8ea-b9cd/configuration"
+}, {
+  "@graph" : [ {
+    "@id" : "http://localhost:8080/resources/pipelines/1598357371960/component/cd54-8f2b/configuration",
+    "@type" : [ "http://plugins.linkedpipes.com/ontology/t-sparqlConstruct#Configuration" ],
+    "http://plugins.linkedpipes.com/ontology/t-sparqlConstruct#query" : [ {
+      "@value" : "prefix saref: <https://w3id.org/saref#>\nprefix sosa: <http://www.w3.org/ns/sosa/>\nprefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\nprefix xsd:  <http://www.w3.org/2001/XMLSchema#>\nprefix om2: <http://www.ontology-of-units-of-measure.org/resource/om-2/>\nCONSTRUCT {\n    ?name rdf:type sosa:Sensor .\n    ?name sosa:observes ?property .\n    ?name sosa:madeObservation ?uuid .\n    ?uuid rdf:type sosa:Observation .\n    ?uuid sosa:resultTime ?time .\n    ?uuid sosa:hasResult ?uuidresult .\n    ?uuidresult rdf:type om2:Measure .\n    ?uuidresult om2:hasUnit ?unit .\n    ?uuidresult om2:hasNumericalValue ?value .\n    ?x ?y ?z .\n}\nWHERE {\n    {\n        {\n            ?x ?y ?z .\n        }\n        FILTER NOT EXISTS\n        {\n            ?x rdf:type saref:Device .\n        }\n        FILTER NOT EXISTS\n        {\n            ?x rdf:type saref:Measurement .\n        }\n        FILTER NOT EXISTS {\n            ?x saref:measuresProperty ?z .\n        }\n        FILTER NOT EXISTS {\n            ?x saref:isMeasuredIn ?z .\n        }\n        FILTER NOT EXISTS {\n            ?x saref:hasValue ?z .\n        }\n        FILTER NOT EXISTS {\n            ?x saref:hasTimeStamp ?z .\n        }\n    }\n    UNION\n    {\n        ?name rdf:type saref:Device .\n        ?uuid rdf:type saref:Measurement .\n        OPTIONAL {?name saref:measuresProperty ?property .}\n        OPTIONAL {?uuid saref:isMeasuredIn ?unit .}\n        ?uuid saref:hasValue ?value .\n        ?uuid saref:hasTimeStamp ?time .\n        BIND(iri(concat(str(?uuid), '_result')) AS ?uuidresult)\n    }\n}"
+    } ],
+    "http://plugins.linkedpipes.com/ontology/t-sparqlConstruct#queryControl" : [ {
+      "@id" : "http://plugins.linkedpipes.com/resource/configuration/None"
+    } ]
+  } ],
+  "@id" : "http://localhost:8080/resources/pipelines/1598357371960/component/cd54-8f2b/configuration"
+}, {
+  "@graph" : [ {
+    "@id" : "http://localhost:8080/resources/pipelines/1598357371960/component/e6bd-87d0/configuration",
+    "@type" : [ "http://plugins.linkedpipes.com/ontology/e-httpGetFiles#Configuration" ],
+    "http://plugins.linkedpipes.com/ontology/e-httpGetFiles#detailLog" : [ {
+      "@type" : "http://www.w3.org/2001/XMLSchema#boolean",
+      "@value" : "false"
+    } ],
+    "http://plugins.linkedpipes.com/ontology/e-httpGetFiles#detailLogControl" : [ {
+      "@id" : "http://plugins.linkedpipes.com/resource/configuration/None"
+    } ],
+    "http://plugins.linkedpipes.com/ontology/e-httpGetFiles#encodeUrl" : [ {
+      "@type" : "http://www.w3.org/2001/XMLSchema#boolean",
+      "@value" : "false"
+    } ],
+    "http://plugins.linkedpipes.com/ontology/e-httpGetFiles#encodeUrlControl" : [ {
+      "@id" : "http://plugins.linkedpipes.com/resource/configuration/None"
+    } ],
+    "http://plugins.linkedpipes.com/ontology/e-httpGetFiles#hardRedirect" : [ {
+      "@type" : "http://www.w3.org/2001/XMLSchema#boolean",
+      "@value" : "false"
+    } ],
+    "http://plugins.linkedpipes.com/ontology/e-httpGetFiles#hardRedirectControl" : [ {
+      "@id" : "http://plugins.linkedpipes.com/resource/configuration/None"
+    } ],
+    "http://plugins.linkedpipes.com/ontology/e-httpGetFiles#retryCountControl" : [ {
+      "@id" : "http://plugins.linkedpipes.com/resource/configuration/None"
+    } ],
+    "http://plugins.linkedpipes.com/ontology/e-httpGetFiles#skipOnError" : [ {
+      "@type" : "http://www.w3.org/2001/XMLSchema#boolean",
+      "@value" : "true"
+    } ],
+    "http://plugins.linkedpipes.com/ontology/e-httpGetFiles#skipOnErrorControl" : [ {
+      "@id" : "http://plugins.linkedpipes.com/resource/configuration/None"
+    } ],
+    "http://plugins.linkedpipes.com/ontology/e-httpGetFiles#threadsControl" : [ {
+      "@id" : "http://plugins.linkedpipes.com/resource/configuration/None"
+    } ],
+    "http://plugins.linkedpipes.com/ontology/e-httpGetFiles#threadsPerGroupControl" : [ {
+      "@id" : "http://plugins.linkedpipes.com/resource/configuration/None"
+    } ],
+    "http://plugins.linkedpipes.com/ontology/e-httpGetFiles#timeoutControl" : [ {
+      "@id" : "http://plugins.linkedpipes.com/resource/configuration/None"
+    } ],
+    "http://plugins.linkedpipes.com/ontology/e-httpGetFiles#utf8Redirect" : [ {
+      "@type" : "http://www.w3.org/2001/XMLSchema#boolean",
+      "@value" : "false"
+    } ],
+    "http://plugins.linkedpipes.com/ontology/e-httpGetFiles#utf8RedirectControl" : [ {
+      "@id" : "http://plugins.linkedpipes.com/resource/configuration/None"
+    } ],
+    "http://plugins.linkedpipes.com/ontology/e-httpGetFiles#waitTimeControl" : [ {
+      "@id" : "http://plugins.linkedpipes.com/resource/configuration/None"
+    } ]
+  } ],
+  "@id" : "http://localhost:8080/resources/pipelines/1598357371960/component/e6bd-87d0/configuration"
+}, {
+  "@graph" : [ {
+    "@id" : "http://localhost:8080/resources/pipelines/1598357371960/component/eb4e-ae77/configuration",
+    "@type" : [ "http://plugins.linkedpipes.com/ontology/t-filesToRdfGraph#Configuration" ],
+    "http://plugins.linkedpipes.com/ontology/t-filesToRdfGraph#commitSize" : [ {
+      "@type" : "http://www.w3.org/2001/XMLSchema#integer",
+      "@value" : "50000"
+    } ],
+    "http://plugins.linkedpipes.com/ontology/t-filesToRdfGraph#commitSizeControl" : [ {
+      "@id" : "http://plugins.linkedpipes.com/resource/configuration/None"
+    } ],
+    "http://plugins.linkedpipes.com/ontology/t-filesToRdfGraph#mimeType" : [ {
+      "@value" : ""
+    } ],
+    "http://plugins.linkedpipes.com/ontology/t-filesToRdfGraph#mimeTypeControl" : [ {
+      "@id" : "http://plugins.linkedpipes.com/resource/configuration/None"
+    } ],
+    "http://plugins.linkedpipes.com/ontology/t-filesToRdfGraph#softFail" : [ {
+      "@type" : "http://www.w3.org/2001/XMLSchema#boolean",
+      "@value" : "false"
+    } ],
+    "http://plugins.linkedpipes.com/ontology/t-filesToRdfGraph#softFailControl" : [ {
+      "@id" : "http://plugins.linkedpipes.com/resource/configuration/None"
+    } ]
+  } ],
+  "@id" : "http://localhost:8080/resources/pipelines/1598357371960/component/eb4e-ae77/configuration"
+} ]

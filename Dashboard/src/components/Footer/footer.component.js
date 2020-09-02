@@ -18,9 +18,10 @@ const Footer = (props: Props) => {
         <div className="solid-footer__content--copyright">
           <ul>
             <li>© {process.env.REACT_APP_COMPANY_NAME}</li>
+            <li>© Digipolis Gent</li>
             <li>
               {t('footer.version')}
-              {''} <span className="build-value">{process.env.REACT_APP_VERSION}</span>
+              {''} <span className="build-value">1.0.0</span>
             </li>
           </ul>
         </div>

@@ -78,7 +78,6 @@ export class IoTDashboard extends React.Component {
             // Checking if our file already has its own acl file
             if (result.url === aclurl) {
                 // ACL File is already present
-                console.log('ACL File Found');
                 // Check file permissions
                 const acl = new aclClient(aclurl);
                 acl.readAccessControl().then(permissions => {
@@ -89,7 +88,6 @@ export class IoTDashboard extends React.Component {
                 }).catch(err => errorToaster(err));
             } else {
                 // ACL File is not yet present
-                console.log('ACL File not yet found');
                 // Get old permissions
                 ACLFile.getPermissions().then((old_permissions) => {
                     // Create ACL file with old permissions
@@ -97,7 +95,6 @@ export class IoTDashboard extends React.Component {
                         // Get new permissions
                         const acl = new aclClient(aclurl);
                         acl.readAccessControl().then(permissions => {
-                            console.log(permissions)
                             var filtered_permissions = permissions.filter((permission) => {
                                 return permission.name === ACCESSLISTWEBID;
                             });
@@ -129,7 +126,6 @@ export class IoTDashboard extends React.Component {
                         title: filename,
                         address: this.state.file
                     }).then((res) => {
-                        console.log(res);
                         successToaster('File added in Digipolis API.');
                     }).catch(err => errorToaster(String(err)));
                 }
@@ -163,7 +159,6 @@ export class IoTDashboard extends React.Component {
                             address: this.state.file
                         }
                     }).then((res) => {
-                        console.log(res);
                         successToaster('File removed in Digipolis API');
                     }).catch(err => errorToaster(String(err)));
                 }

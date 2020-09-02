@@ -8,11 +8,7 @@ import {
   PageNotFound,
   Welcome,
   RegistrationSuccess,
-  Profile,
   IoTDashboard,
-  FormModelConverter,
-  FormModelRenderer,
-  TextEditor
 } from './containers';
 
 const privateRoutes = [
@@ -22,29 +18,9 @@ const privateRoutes = [
     component: Welcome
   },
   {
-    id: 'profile',
-    path: '/profile',
-    component: Profile
-  },
-  {
-    id: 'text-editor',
-    path: '/text-editor',
-    component: TextEditor
-  },
-  {
     id: 'iot-dashboard',
     path: '/iot-dashboard',
     component: IoTDashboard
-  },
-  {
-    id: 'formmodelconverter',
-    path: '/formmodel/converter',
-    component: FormModelConverter
-  },
-  {
-    id: 'formmodelrenderer',
-    path: '/formmodel/renderer',
-    component: FormModelRenderer
   }
 ];
 

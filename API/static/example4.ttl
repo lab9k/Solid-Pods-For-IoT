@@ -1,0 +1,142 @@
+@prefix : <#>.
+@prefix sos: <http://www.w3.org/ns/sosa/>.
+@prefix om: <http://www.ontology-of-units-of-measure.org/resource/om-2/>.
+@prefix XML: <http://www.w3.org/2001/XMLSchema#>.
+
+<dev:mac:b4e62dfffe28e081_humidity>
+    a sos:Sensor;
+    sos:madeObservation
+        <uuid:0a4306de-a4e4-4569-983f-662ced2d066f>,
+        <uuid:4c9d2ae2-d431-45b9-bcf7-a84941a774e9>,
+        <uuid:58d4f070-ed7c-402d-b62c-c93b79ffd1ef>,
+        <uuid:715c9628-d357-4b8d-928a-f4f3fb16c214>,
+        <uuid:7732bc8e-67db-4b54-98ed-6802288a9e17>,
+        <uuid:8fdf3d39-4139-4b82-b4e0-086951f10353>,
+        <uuid:94871113-d822-48a7-b069-1043338f7149>,
+        <uuid:9981fc42-fb70-4238-9d6e-2ddad3d1e6a4>,
+        <uuid:99f239b5-a908-496c-8a13-1256e1b5da64>,
+        <uuid:9a3f808b-6010-4b72-ac7a-79537e968939>,
+        <uuid:9e6bc0ee-ec7f-4ce6-9aae-cdebd1fb02e3>,
+        <uuid:afe34498-ea0e-49ab-82c2-c7ee33da0c07>,
+        <uuid:b45b4b0d-7c9d-4838-889a-eaaa84a0bc8c>,
+        <uuid:c24ad2ec-1fe8-4878-a1d2-d3063b2e28aa>,
+        <uuid:d1486238-e4f7-4a53-93e8-a833cdc2575e>,
+        <uuid:d86379c5-4860-4491-989c-1b19d111de63>,
+        <uuid:dc731eec-d3c9-460e-a0de-5b55d79ee30d>,
+        <uuid:e1802957-7e1e-40d3-9708-efa69f255e33>,
+        <uuid:ec978a4e-056e-459b-80b9-96cdd9ecea18>;
+    sos:observes om:RelativeHumidity.
+<uuid:0a4306de-a4e4-4569-983f-662ced2d066f>
+    a sos:Observation;
+    sos:hasResult <uuid:0a4306de-a4e4-4569-983f-662ced2d066f_result>;
+    sos:resultTime "2020-08-26T06:43:03Z"^^XML:dateTIme.
+<uuid:0a4306de-a4e4-4569-983f-662ced2d066f_result>
+a om:Measure; om:hasNumericalValue "20"^^XML:float; om:hasUnit om:percent.
+<uuid:4c9d2ae2-d431-45b9-bcf7-a84941a774e9>
+    a sos:Observation;
+    sos:hasResult <uuid:4c9d2ae2-d431-45b9-bcf7-a84941a774e9_result>;
+    sos:resultTime "2020-08-26T06:41:03Z"^^XML:dateTIme.
+<uuid:4c9d2ae2-d431-45b9-bcf7-a84941a774e9_result>
+a om:Measure; om:hasNumericalValue "20"^^XML:float; om:hasUnit om:percent.
+<uuid:58d4f070-ed7c-402d-b62c-c93b79ffd1ef>
+    a sos:Observation;
+    sos:hasResult <uuid:58d4f070-ed7c-402d-b62c-c93b79ffd1ef_result>;
+    sos:resultTime "2020-08-26T06:39:02Z"^^XML:dateTIme.
+<uuid:58d4f070-ed7c-402d-b62c-c93b79ffd1ef_result>
+a om:Measure; om:hasNumericalValue "34"^^XML:float; om:hasUnit om:percent.
+<uuid:715c9628-d357-4b8d-928a-f4f3fb16c214>
+    a sos:Observation;
+    sos:hasResult <uuid:715c9628-d357-4b8d-928a-f4f3fb16c214_result>;
+    sos:resultTime "2020-08-26T06:38:32Z"^^XML:dateTIme.
+<uuid:715c9628-d357-4b8d-928a-f4f3fb16c214_result>
+a om:Measure; om:hasNumericalValue "36"^^XML:float; om:hasUnit om:percent.
+<uuid:7732bc8e-67db-4b54-98ed-6802288a9e17>
+    a sos:Observation;
+    sos:hasResult <uuid:7732bc8e-67db-4b54-98ed-6802288a9e17_result>;
+    sos:resultTime "2020-08-26T06:36:01Z"^^XML:dateTIme.
+<uuid:7732bc8e-67db-4b54-98ed-6802288a9e17_result>
+a om:Measure; om:hasNumericalValue "20"^^XML:float; om:hasUnit om:percent.
+<uuid:8fdf3d39-4139-4b82-b4e0-086951f10353>
+    a sos:Observation;
+    sos:hasResult <uuid:8fdf3d39-4139-4b82-b4e0-086951f10353_result>;
+    sos:resultTime "2020-08-26T06:35:01Z"^^XML:dateTIme.
+<uuid:8fdf3d39-4139-4b82-b4e0-086951f10353_result>
+a om:Measure; om:hasNumericalValue "20"^^XML:float; om:hasUnit om:percent.
+<uuid:94871113-d822-48a7-b069-1043338f7149>
+    a sos:Observation;
+    sos:hasResult <uuid:94871113-d822-48a7-b069-1043338f7149_result>;
+    sos:resultTime "2020-08-26T06:35:31Z"^^XML:dateTIme.
+<uuid:94871113-d822-48a7-b069-1043338f7149_result>
+a om:Measure; om:hasNumericalValue "41"^^XML:float; om:hasUnit om:percent.
+<uuid:9981fc42-fb70-4238-9d6e-2ddad3d1e6a4>
+    a sos:Observation;
+    sos:hasResult <uuid:9981fc42-fb70-4238-9d6e-2ddad3d1e6a4_result>;
+    sos:resultTime "2020-08-26T06:42:03Z"^^XML:dateTIme.
+<uuid:9981fc42-fb70-4238-9d6e-2ddad3d1e6a4_result>
+a om:Measure; om:hasNumericalValue "20"^^XML:float; om:hasUnit om:percent.
+<uuid:99f239b5-a908-496c-8a13-1256e1b5da64>
+    a sos:Observation;
+    sos:hasResult <uuid:99f239b5-a908-496c-8a13-1256e1b5da64_result>;
+    sos:resultTime "2020-08-26T06:43:33Z"^^XML:dateTIme.
+<uuid:99f239b5-a908-496c-8a13-1256e1b5da64_result>
+a om:Measure; om:hasNumericalValue "31"^^XML:float; om:hasUnit om:percent.
+<uuid:9a3f808b-6010-4b72-ac7a-79537e968939>
+    a sos:Observation;
+    sos:hasResult <uuid:9a3f808b-6010-4b72-ac7a-79537e968939_result>;
+    sos:resultTime "2020-08-26T06:41:33Z"^^XML:dateTIme.
+<uuid:9a3f808b-6010-4b72-ac7a-79537e968939_result>
+a om:Measure; om:hasNumericalValue "35"^^XML:float; om:hasUnit om:percent.
+<uuid:9e6bc0ee-ec7f-4ce6-9aae-cdebd1fb02e3>
+    a sos:Observation;
+    sos:hasResult <uuid:9e6bc0ee-ec7f-4ce6-9aae-cdebd1fb02e3_result>;
+    sos:resultTime "2020-08-26T06:40:32Z"^^XML:dateTIme.
+<uuid:9e6bc0ee-ec7f-4ce6-9aae-cdebd1fb02e3_result>
+a om:Measure; om:hasNumericalValue "20"^^XML:float; om:hasUnit om:percent.
+<uuid:afe34498-ea0e-49ab-82c2-c7ee33da0c07>
+    a sos:Observation;
+    sos:hasResult <uuid:afe34498-ea0e-49ab-82c2-c7ee33da0c07_result>;
+    sos:resultTime "2020-08-26T06:39:32Z"^^XML:dateTIme.
+<uuid:afe34498-ea0e-49ab-82c2-c7ee33da0c07_result>
+a om:Measure; om:hasNumericalValue "20"^^XML:float; om:hasUnit om:percent.
+<uuid:b45b4b0d-7c9d-4838-889a-eaaa84a0bc8c>
+    a sos:Observation;
+    sos:hasResult <uuid:b45b4b0d-7c9d-4838-889a-eaaa84a0bc8c_result>;
+    sos:resultTime "2020-08-26T06:40:02Z"^^XML:dateTIme.
+<uuid:b45b4b0d-7c9d-4838-889a-eaaa84a0bc8c_result>
+a om:Measure; om:hasNumericalValue "20"^^XML:float; om:hasUnit om:percent.
+<uuid:c24ad2ec-1fe8-4878-a1d2-d3063b2e28aa>
+    a sos:Observation;
+    sos:hasResult <uuid:c24ad2ec-1fe8-4878-a1d2-d3063b2e28aa_result>;
+    sos:resultTime "2020-08-26T06:34:30Z"^^XML:dateTIme.
+<uuid:c24ad2ec-1fe8-4878-a1d2-d3063b2e28aa_result>
+a om:Measure; om:hasNumericalValue "20"^^XML:float; om:hasUnit om:percent.
+<uuid:d1486238-e4f7-4a53-93e8-a833cdc2575e>
+    a sos:Observation;
+    sos:hasResult <uuid:d1486238-e4f7-4a53-93e8-a833cdc2575e_result>;
+    sos:resultTime "2020-08-26T06:37:31Z"^^XML:dateTIme.
+<uuid:d1486238-e4f7-4a53-93e8-a833cdc2575e_result>
+a om:Measure; om:hasNumericalValue "20"^^XML:float; om:hasUnit om:percent.
+<uuid:d86379c5-4860-4491-989c-1b19d111de63>
+    a sos:Observation;
+    sos:hasResult <uuid:d86379c5-4860-4491-989c-1b19d111de63_result>;
+    sos:resultTime "2020-08-26T06:38:02Z"^^XML:dateTIme.
+<uuid:d86379c5-4860-4491-989c-1b19d111de63_result>
+a om:Measure; om:hasNumericalValue "20"^^XML:float; om:hasUnit om:percent.
+<uuid:dc731eec-d3c9-460e-a0de-5b55d79ee30d>
+    a sos:Observation;
+    sos:hasResult <uuid:dc731eec-d3c9-460e-a0de-5b55d79ee30d_result>;
+    sos:resultTime "2020-08-26T06:37:01Z"^^XML:dateTIme.
+<uuid:dc731eec-d3c9-460e-a0de-5b55d79ee30d_result>
+a om:Measure; om:hasNumericalValue "20"^^XML:float; om:hasUnit om:percent.
+<uuid:e1802957-7e1e-40d3-9708-efa69f255e33>
+    a sos:Observation;
+    sos:hasResult <uuid:e1802957-7e1e-40d3-9708-efa69f255e33_result>;
+    sos:resultTime "2020-08-26T06:42:33Z"^^XML:dateTIme.
+<uuid:e1802957-7e1e-40d3-9708-efa69f255e33_result>
+a om:Measure; om:hasNumericalValue "20"^^XML:float; om:hasUnit om:percent.
+<uuid:ec978a4e-056e-459b-80b9-96cdd9ecea18>
+    a sos:Observation;
+    sos:hasResult <uuid:ec978a4e-056e-459b-80b9-96cdd9ecea18_result>;
+    sos:resultTime "2020-08-26T06:36:31Z"^^XML:dateTIme.
+<uuid:ec978a4e-056e-459b-80b9-96cdd9ecea18_result>
+a om:Measure; om:hasNumericalValue "35"^^XML:float; om:hasUnit om:percent.

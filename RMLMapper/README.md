@@ -23,15 +23,15 @@ A node.js server instance which connects to the the MQTT broker and converts the
   - `UPDATER_DELAY_MS` defines the amount of time that has to be waited between updating the pod store with the local one.
     This is done to avoid sending too many fetch requests to the Solid server and thereby overloading it.
 
-- Create a `credentials.mjs` file in the `src` folder and add the following code:
+- In the `RMLMapper` folder, create a `.env` file and add the following contents:
 
-  ```javascript
-  export const username = "YOUR_USERNAME";
-  export const password = "YOUR_PASSWORD";
+  ```
+  SOLIDUSERNAME=YOUR_USERNAME
+  SOLIDPASSWORD=YOUR_PASSWORD
   ```
 
-  This file is imported in `config.mjs`, and the parameters can also be immediately set over there.
-  The reason for splitting it of is to avoid uploading credentials to Github by accident, hence the addition of the `credentials.mjs` in the `.gitignore` file.
+  Environment variables are used to avoid pushing credentials to github.
+  Alternatively you can immediately add these variables in the `config.mjs` file as well.
 
 - Start the program by running `npm start` or `node src/index.mjs`.
 
@@ -46,6 +46,7 @@ The program flow goes as follows.
    1. Filtering the messages to see whether they comply to spec, and contain numerical values.
       (Boolean and string values are currently not supported in SAREF.)
    2. Adding a [UUIDv4](https://www.ietf.org/rfc/rfc4122.txt) as a unique identifier for the measurement.
+      Note: In principle it should be possible with blank nodes, though in my experience not all libraries seem to handle these correctly.
    3. Converting the timestamp from Unix format to the ISO-like format used in theNow xsd scheme.
    4. Converting units and values not supported in the om-2 ontology to ones that are
    5. Uses the unit from the SenML message to get both unit and quantity supported by the om-2 ontology, if supported.

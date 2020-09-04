@@ -49,7 +49,9 @@ export const save = async function (message) {
     if (!resources[message.name]) {
         var base = await getAppStorage(webId)
         // If no resource yet exists, create one.
-        var location = `${base}${LOCATION}${message.name}.ttl`;
+        var parts = message.name.split('_');
+        var subject = parts.length > 1 ? parts[1] : '';
+        var location = `${base}${LOCATION}${subject}${parts[0].slice(13, 18)}.ttl`;
         var store = new $rdf.Formula;
         var updated = Date.now();
         var messages = 0;

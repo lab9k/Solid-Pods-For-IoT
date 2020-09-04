@@ -1,8 +1,9 @@
 import React from 'react';
 import axios from 'axios';
-import aclClient from 'ownacl';
+import SolidAclUtils from 'solid-acl-utils';
+import auth from 'solid-auth-client';
+import FC from 'solid-file-client';
 import { errorToaster, successToaster } from '@utils';
-import { AccessControlList } from '@inrupt/solid-react-components';
 import { retrieveStore, getFiles, getSensor, getMeasurements, getData } from './utils';
 import { Visualize, Textinput, Selectinput, Shareinput } from './components';
 import {
@@ -14,6 +15,8 @@ import {
 const ACCESSLISTWEBID = 'https://flordigipolis.solidweb.org/profile/card#me';
 const IOTFOLDER = 'private/iot';
 const APIURL = 'http://solid.pool42.io:8030/v1/';
+const fetch = auth.fetch.bind(auth);
+const { READ } = SolidAclUtils.Permissions;
 
 const api = axios.create({
     baseURL: APIURL,
@@ -69,68 +72,33 @@ export class IoTDashboard extends React.Component {
         }
     }
 
-    // Checks if our file already has an acl file, if not creates one, in the end we know whether the access list webId already has access. Admittedly it's a mess
-    updateShareStatus = () => {
-        var aclurl = `${this.state.file}.acl`;
-        // Check if an ACL file already exists
-        const ACLFile = new AccessControlList(this.state.webId, this.state.file);
-        ACLFile.getACLFile().then(result => {
-            // Checking if our file already has its own acl file
-            if (result.url === aclurl) {
-                // ACL File is already present
-                // Check file permissions
-                const acl = new aclClient(aclurl);
-                acl.readAccessControl().then(permissions => {
-                    var filtered_permissions = permissions.filter((permission) => {
-                        return permission.name === ACCESSLISTWEBID;
-                    });
-                    this.setState({ shared: !!filtered_permissions.length });
-                }).catch(err => errorToaster(err));
-            } else {
-                // ACL File is not yet present
-                // Get old permissions
-                ACLFile.getPermissions().then((old_permissions) => {
-                    // Create ACL file with old permissions
-                    ACLFile.createACL(old_permissions).then(() => {
-                        // Get new permissions
-                        const acl = new aclClient(aclurl);
-                        acl.readAccessControl().then(permissions => {
-                            var filtered_permissions = permissions.filter((permission) => {
-                                return permission.name === ACCESSLISTWEBID;
-                            });
-                            this.setState({ shared: !!filtered_permissions.length });
-                        }).catch(err => errorToaster(err));
-                    }).catch(err => errorToaster(err));
-                }).catch(err => errorToaster(err));
-            }
-        }).catch(err => errorToaster(err));
+    // Checks if read access to the ACCESSLISTWEBID has already been granted
+    updateShareStatus = async () => {
+        try {
+            const aclAPI = new SolidAclUtils.AclApi(fetch, { autoSave: true });
+            const acl = await aclAPI.loadFromFileUrl(this.state.file);
+            const permissions = acl.getPermissionsFor(ACCESSLISTWEBID).permissions;
+            const shared = permissions.has(READ);
+            this.setState({ shared });
+        } catch (err) {
+            errorToaster(String(err));
+        }
     }
 
     // Give read permissions to a webId at a certain url
     giveReadPermissions = async (url) => {
         try {
-            // Fix the access control list
-            const acl = new aclClient(`${this.state.file}.acl`);
-            const toAdd = {
-                name: url,
-                access: ['Read']
-            };
-            acl.addAgent(toAdd).then(() => {
-                this.updateShareStatus();
-                successToaster(`Read access granted to ${url}.`);
-                if (url === ACCESSLISTWEBID) {
-                    const urlcomponents = this.state.file.split('/');
-                    const filename = urlcomponents[urlcomponents.length - 1];
-                    // Also send a put request to our API to let it know access was granted
-                    api.put(`/solidfiles/${filename}`, {
-                        title: filename,
-                        address: this.state.file
-                    }).then((res) => {
-                        successToaster('File added in Digipolis API.');
-                    }).catch(err => errorToaster(String(err)));
-                }
+            const aclAPI = new SolidAclUtils.AclApi(fetch, { autoSave: true });
+            const acl = await aclAPI.loadFromFileUrl(this.state.file);
+            await acl.addRule(READ, url);
+            successToaster(`Read access granted to ${url}.`);
+            this.updateShareStatus();
+            const urlcomponents = this.state.file.split('/');
+            const filename = urlcomponents[urlcomponents.length - 1];
+            await api.put(`/solidfiles/${filename}`, {
+                address: this.state.file
             });
-
+            successToaster('File added in Digipolis API.');
         } catch (err) {
             errorToaster(`Error granting access to ${url}: ${err}`);
         }
@@ -138,31 +106,21 @@ export class IoTDashboard extends React.Component {
 
     takeReadPermissions = async (url) => {
         try {
-            // Fix the access control list
-            const acl = new aclClient(`${this.state.file}.acl`);
-            const toRemove = {
-                name: url,
-                access: ['Read']
-            };
-            acl.deleteAgent(toRemove).then(() => {
-                this.updateShareStatus();
-                successToaster(`Read access removed from ${url}.`);
-                if (url === ACCESSLISTWEBID) {
-                    const urlcomponents = this.state.file.split('/');
-                    const filename = urlcomponents[urlcomponents.length - 1];
-                    // Also send a delete request to our API to let it know access was granted
-                    api({
-                        method: 'DELETE',
-                        url: `/solidfiles/${filename}`,
-                        data: {
-                            title: filename,
-                            address: this.state.file
-                        }
-                    }).then((res) => {
-                        successToaster('File removed in Digipolis API');
-                    }).catch(err => errorToaster(String(err)));
+            const aclAPI = new SolidAclUtils.AclApi(fetch, { autoSave: true });
+            const acl = await aclAPI.loadFromFileUrl(this.state.file);
+            await acl.deleteRule(READ, url);
+            successToaster(`Read access removed from ${url}.`);
+            this.updateShareStatus();
+            const urlcomponents = this.state.file.split('/');
+            const filename = urlcomponents[urlcomponents.length - 1];
+            await api({
+                method: 'DELETE',
+                url: `/solidfiles/${filename}`,
+                data: {
+                    address: this.state.file
                 }
             });
+            successToaster('File removed in Digipolis API');
         } catch (err) {
             errorToaster(String(err));
         }

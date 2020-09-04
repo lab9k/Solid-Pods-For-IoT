@@ -2,7 +2,6 @@ import React from 'react';
 import axios from 'axios';
 import SolidAclUtils from 'solid-acl-utils';
 import auth from 'solid-auth-client';
-import FC from 'solid-file-client';
 import { errorToaster, successToaster } from '@utils';
 import { retrieveStore, getFiles, getSensor, getMeasurements, getData } from './utils';
 import { Visualize, Textinput, Selectinput, Shareinput } from './components';

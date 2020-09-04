@@ -19,7 +19,7 @@
     "MQTT"
   ],
   "author": "Flor Sanders",
-  "license": "UNLICENSED",
+  "license": "AGPL-3.0-only",
   "bugs": {
     "url": "https://github.com/lab9k/Solid-Pods-For-IoT/issues"
   },

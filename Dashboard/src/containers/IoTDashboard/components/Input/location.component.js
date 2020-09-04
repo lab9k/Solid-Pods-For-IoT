@@ -2,21 +2,11 @@ import React from 'react';
 import {InformationWrapper} from './information.style';
 
 
-export class Information extends React.Component {
-    // Save contents of the textbox as application state
-    state = {
-        url: this.props.default
-    }
-
-    // Update the application state if the textbox contents changes
-    onChange = (e) => {
-        this.setState({[e.target.name]: e.target.value});
-    }
-
+export class Location extends React.Component {
     // Once submitted, pass the application state to the global state
     onSubmit = (e) => {
         e.preventDefault();
-        this.props.onSubmit(this.state.url);
+        this.props.onSubmit();
     }
 
     // Visual component of our application, which should be shown (textbox + subit button)
@@ -26,11 +16,27 @@ export class Information extends React.Component {
                 <p>{this.props.title}:</p>
                 <form onSubmit = {this.onSubmit} style = {{display: 'flex'}}>
                     <input
+                        type='button'
+                        value='here'
+                        onClick={this.props.whereAmI}
+                        className='btn'
+                        style={{flex: '1'}}
+                    />
+                    Lat: 
+                    <input
                         type='text'
-                        name='url'
+                        name='latitude'
                         style={{flex: '10', padding: ''}}
-                        value={this.state.url}
-                        onChange={this.onChange}
+                        value={this.props.latitude}
+                        onChange={this.props.onChange}
+                    />
+                    Lon:
+                     <input
+                        type='text'
+                        name='longitude'
+                        style={{flex: '10', padding: ''}}
+                        value={this.props.longitude}
+                        onChange={this.props.onChange}
                     />
                     <input
                         type='submit'

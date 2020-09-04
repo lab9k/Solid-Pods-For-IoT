@@ -3,13 +3,14 @@ import axios from 'axios';
 import SolidAclUtils from 'solid-acl-utils';
 import auth from 'solid-auth-client';
 import { errorToaster, successToaster } from '@utils';
-import { retrieveStore, getFiles, getSensor, getMeasurements, getData } from './utils';
-import { Visualize, Textinput, Selectinput, Shareinput } from './components';
+import { retrieveStore, getFiles, getSensor, getMeasurements, getData, updateDescription, updateLocation } from './utils';
+import { Visualize, Textinput, Selectinput, Shareinput, Location, Description } from './components';
 import {
     IoTDashboardWrapper,
     IoTDashboardContainer,
     Header
 } from './iot-dashboards.style';
+import { getDescription, getLocation } from './utils/rdf-helper';
 
 const ACCESSLISTWEBID = 'https://flordigipolis.solidweb.org/profile/card#me';
 const IOTFOLDER = 'private/iot';
@@ -29,9 +30,11 @@ export class IoTDashboard extends React.Component {
         file: 'None',
         store: undefined,
         fetcher: undefined,
+        updater: undefined,
         webId: undefined,
         shared: undefined,
-        data: []
+        data: [],
+        description: '',
     }
 
     // Immediately after mounting, the list of the files in the /private/iot subfolder is read
@@ -46,9 +49,9 @@ export class IoTDashboard extends React.Component {
         this.setState({ file, data: [], shared: undefined }, () => {
             if (this.state.file !== 'None') {
                 retrieveStore(this.state.file)
-                    .then(({ store, fetcher, webId }) => {
+                    .then(({ store, fetcher, updater, webId }) => {
                         // Save the store and fetcher into the program state
-                        this.setState({ store, fetcher, webId }, () => {
+                        this.setState({ store, fetcher, updater, webId }, () => {
                             this.updateShareStatus();
                             this.onReceiveStore();
                         });
@@ -62,6 +65,12 @@ export class IoTDashboard extends React.Component {
     onReceiveStore = () => {
         // Getting sensor data
         var { sensor, type } = getSensor(this.state.store);
+        var description = getDescription(this.state.store);
+        this.setState({description});
+        var {latitude, longitude} = getLocation(this.state.store);
+        if (latitude !== '' && longitude !== '') {
+            this.setState({latitude, longitude});
+        }
         if (type === 'sosa' || type === 'saref') {
             var measurements = getMeasurements(sensor, type, this.state.store);
             var data = getData(measurements, type, this.state.store);
@@ -136,6 +145,41 @@ export class IoTDashboard extends React.Component {
         }
     }
 
+    // onSubmit function for the extra information we want to add to the Solid pod
+    onReceiveDescription = () => {
+        updateDescription(this.state.description, this.state.file, this.state.store, this.state.updater);
+    }
+
+    // onSubmit function for the location
+    onReceiveLocation = () => {
+        updateLocation(this.state.latitude, this.state.longitude, this.state.file, this.state.store, this.state.updater);
+    }
+
+    // Function to get current location
+    whereAmI = () => {
+        console.log('WhereAmIPRESSED')
+        navigator.geolocation.getCurrentPosition(this.onReceiveLocationFromBrowser, this.onLocationFromBrowserDenied);
+    }
+
+    // Get location data from browser
+    onReceiveLocationFromBrowser = (loc) => {
+        var latitude = loc.coords.latitude;
+        var longitude = loc.coords.longitude;
+        this.setState({latitude, longitude});
+    }
+
+    // Errortoaster when location access is not granted
+    onLocationFromBrowserDenied = (res) => {
+        errorToaster(res.message);
+    }
+
+    // Updating state if a field's value changes
+    onChangeField = (e) => {
+        var name = e.target.name;
+        var value = e.target.value;
+        this.setState({[name]: value})
+    }
+
     render() {
         return (
             <IoTDashboardWrapper>
@@ -147,6 +191,8 @@ export class IoTDashboard extends React.Component {
                         <p>Please pick the file you would like to manage from the dropdown menu.</p>
                     </Header>
                     <Selectinput onSubmit={this.onReceiveFile} options={this.state.files} label="Select a file" option={this.state.file}></Selectinput>
+                    {(this.state.file !== 'None') ? <Description onSubmit={this.onReceiveDescription} onChange={this.onChangeField} title='Description' value={this.state.description} label='Update'></Description> : <></>}
+                    {(this.state.file !== 'None') ? <Location onSubmit={this.onReceiveLocation} whereAmI={this.whereAmI} onChange={this.onChangeField} title='Location' longitude={this.state.longitude} latitude={this.state.latitude} label='Update'></Location> : <></>}
                     {(this.state.file !== 'None') ? <Textinput onSubmit={this.giveReadPermissions} default={ACCESSLISTWEBID} title='Share this file' label='share'></Textinput> : <></>}
                     {(this.state.file !== 'None' && this.state.shared !== undefined) ? <Shareinput onSubmit={this.onShareDigipolis} title='Share this file' shared={this.state.shared}></Shareinput> : <></>}
                     <Visualize data={this.state.data} object={this.state.file} type={this.state.type}></Visualize>

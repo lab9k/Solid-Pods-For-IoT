@@ -1,6 +1,6 @@
 # Solid API
 
-An API implemented using node.js which acts as an authentication and management wrapper for the IoT data in RDF format (Turtle serialization) saved either in Solid pods or on local storage. Its main purpose is to offer our LinkedPipes ETL service to acquire the available datasets without having to deal with Solid authentication.
+An API implemented using node.js which acts as an authentication and management wrapper for the IoT data in RDF format (Turtle serialization) saved either in Solid pods or on local storage. Its main purpose is to offer our [LinkedPipes ETL service](https://github.com/lab9k/Solid-Pods-For-IoT/tree/master/Linkedpipe) to acquire the available datasets without having to deal with Solid authentication.
 
 ## Installation
 
@@ -56,7 +56,7 @@ The API has the following paths available for calls:
 
 - `DELETE`
 
-  - `DELETE http://localhost:LISTEN_PORT/v1/solidfile/filename.ttl`: The file with that name will be removed from the list of available resources. The body should look identical to the one used for the PUT request.
+  - `DELETE http://localhost:LISTEN_PORT/v1/solidfile/filename.ttl`: The file with that name will be removed from the list of available resources. The body should look identical to the one used for the PUT request, the `title` variable is optional however.
 
 Note: Each of the requests above is defined in either the `solidFiles.mjs` or `staticFiles.mjs` files in the `routes` subfolder and bound to one of the functions defined in the `solidFileHelper.mjs` or `staticFileHelper.mjs` files in the `helpers` subfolder.
 

@@ -1,6 +1,6 @@
 # Linked pipe
 
-A pipeline set up in [LinkedPipes ETL](https://etl.linkedpipes.com/) which fetches the turtle files from containing IoT data from the [SolidIoT API](), combines and transforms them and saves them in a [Virtuoso](https://virtuoso.openlinksw.com/) database.
+A pipeline set up in [LinkedPipes ETL](https://etl.linkedpipes.com/) which fetches the turtle files from containing IoT data from the [SolidIoT API](https://github.com/lab9k/Solid-Pods-For-IoT/tree/master/API), combines and transforms them and saves them in a [Virtuoso](https://virtuoso.openlinksw.com/) database.
 
 ## Installation
 
@@ -21,6 +21,8 @@ While LinkedPipes ETL can be built from the codebase, the easiest way of install
 
 - Configure and start the SolidIoT API.
 - Open the `Solid Datapod Combiner` pipeline in LinkedPipes ETL.
+  The pipeline should look something like this:
+  ![image-20200908151914561](README.assets/image-20200908151914561.png)
 - Several of the components in the Linked Pipe can (and should) be configured (double click on block with corresponding label):
   - **HTTP GET FILE LIST**: Change the `File URL` field to reflect where your instance of the SolidIoT API is hosted.
   - **SPARQL MAP TO CONFIG**: Change the URL on line 20 in the SPARQL CONSTRUCT query to reflect where your instance of the SolidAPI is hosted.

@@ -5,6 +5,7 @@
 - Install [node.js](https://nodejs.org/en/).
 - Open a terminal in the `RMLMapper` folder and run `npm install` to install the dependencies.
   A list of the used packages can be found in `package.json` under `"dependencies"`.
+- At the time of writing, one of the packages (`solid-file-client`) requires an additional installation step described [here](https://github.com/jeff-zucker/solid-file-client/blob/master/README.md#installing).
 
 ## Usage
 
@@ -13,8 +14,12 @@
 - Start the program with `npm start`.
 - Open [http://localhost:3000](http://localhost:3000) to view the webpage in your browser.
 - Go to the IoT Dashboard tab, the application will look for files in the `/private/iot/` folder on the storage part of your Solid Pod.
+  The dashboard should look like this:
+  ![image-20200908152347714](README.assets/image-20200908152347714.png)
 - Select one of the available files, if it contains valid data it will be visualized in an interactive graph.
-  Options are available to share the data as well as copy it to clipboard in JSON format.
+  Options are available to share the data and edit some of it as well as copy the sensor measurements to clipboard in JSON format.
+  Example:
+  ![image-20200908152457027](README.assets/image-20200908152457027.png)
 
 ### Other available scripts
 

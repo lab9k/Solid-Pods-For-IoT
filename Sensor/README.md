@@ -64,7 +64,7 @@ The installation is identical as for the `Sensor_DHT` sketch, with the exception
 
   - Connect to the configured Wi-Fi network.
   - Connect to the configured MQTT Broker.
-    We used a [Mosquitto](https://mosquitto.org/) instance running on a Raspberry Pi, but any broker will do.
+    We used a [Mosquitto](https://mosquitto.org/) instance running on a Web Server, but any broker will do.
 
   - Take measurements using the DHT11 sensor and publish them to the configured MQTT topic in SenML format. For example:
     ` [{"bn":"urn:dev:mac:b4e62dfffe28dfd0_","bt":1597846496.0,"n":"light","t":150.0,"v":93.0}]`.

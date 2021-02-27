@@ -4,7 +4,7 @@ Code and documentation for the proof-of-concept (PoC) system to save real-time I
 
 ## Description
 
-The PoC implementation is based on the network overview found below. Here, a short overview of the different components is given. Setup and implementation details are provided in the `README` of the corresponding subfolders. A video demonstration of the system's functionality is available [here](https://florsanders.be/vid/Solid_Pods_for_IoT_Demonstration.mp4).
+The PoC implementation is based on the network overview found below. Here, a short overview of the different components is given. Setup and implementation details are provided in the `README` of the corresponding subfolders. A video demonstration of the system's functionality is available [here](https://www.youtube.com/watch?v=1PdD8B2Bshw).
 
 ![image-20200908150301105](README.assets/image-20200908150301105.png)
 
